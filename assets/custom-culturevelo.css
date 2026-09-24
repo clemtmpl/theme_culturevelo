@@ -1,0 +1,107 @@
+/* ===========================================================================
+   Culture Vélo Agen — surcouche de marque pour le thème Horizon
+   Fichier maison : ne jamais fusionner dans base.css (écrasé aux mises à jour).
+   Chargé depuis snippets/stylesheets.liquid.
+   =========================================================================== */
+
+:root {
+  /* Palette reprise de culturevelo.com */
+  --cv-blue: #0969a8;
+  --cv-blue-hover: #00a5e2;
+  --cv-blue-mid: #0a79c1;
+  --cv-navy: #032942;
+  --cv-navy-deep: #021d30;
+  --cv-navy-700: #05426b;
+  --cv-sky: #90c4e6;
+  --cv-mist: #ebf0f5;
+  --cv-coral: #e46f62;
+  --cv-coral-hover: #fa887c;
+  --cv-line: #d5dee6;
+
+  /* Verre dépoli */
+  --cv-glass-bg: rgb(255 255 255 / 62%);
+  --cv-glass-border: rgb(255 255 255 / 85%);
+  --cv-glass-blur: blur(18px) saturate(170%);
+  --cv-glass-bg-dark: rgb(3 41 66 / 62%);
+  --cv-glass-border-dark: rgb(255 255 255 / 16%);
+
+  --cv-radius: 18px;
+  --cv-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* --- Utilitaires -----------------------------------------------------------
+   À appliquer via le champ « CSS personnalisé » d'une section dans l'éditeur,
+   ou depuis nos propres sections. */
+
+.cv-glass {
+  background: var(--cv-glass-bg);
+  border: 1px solid var(--cv-glass-border);
+  border-radius: var(--cv-radius);
+  -webkit-backdrop-filter: var(--cv-glass-blur);
+  backdrop-filter: var(--cv-glass-blur);
+}
+
+.cv-glass--dark {
+  background: var(--cv-glass-bg-dark);
+  border-color: var(--cv-glass-border-dark);
+  color: #f2f7fb;
+}
+
+/* Halo coloré posé derrière un bloc sombre, pour donner de la matière au verre.
+   Le parent doit être en position: relative; overflow: hidden. */
+.cv-halo {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.cv-halo--blue { background: var(--cv-blue); opacity: 0.55; }
+.cv-halo--bright { background: var(--cv-blue-hover); opacity: 0.35; }
+.cv-halo--coral { background: var(--cv-coral); opacity: 0.18; }
+
+/* --- Disponibilité en magasin ---------------------------------------------
+   Pastille de stock, en attendant la synchro G8 → Shopify. */
+
+.cv-stock {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #1c8a55;
+}
+
+.cv-stock::before {
+  content: "";
+  inline-size: 8px;
+  block-size: 8px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 0 4px rgb(28 138 85 / 14%);
+}
+
+.cv-stock--order { color: #9a6b12; }
+.cv-stock--order::before { box-shadow: 0 0 0 4px rgb(154 107 18 / 14%); }
+
+/* --- Réglages globaux ------------------------------------------------------ */
+
+/* Anneau de focus aux couleurs de la marque, sur toute la boutique. */
+:focus-visible {
+  outline: 3px solid var(--cv-blue-hover);
+  outline-offset: 2px;
+}
+
+/* Les prix et quantités s'alignent en colonne. */
+.price,
+.cv-tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cv-glass,
+  .cv-halo {
+    transition: none !important;
+  }
+}
