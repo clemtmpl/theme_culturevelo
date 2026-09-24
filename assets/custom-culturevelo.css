@@ -2,6 +2,8 @@
    Culture Vélo Agen — surcouche de marque pour le thème Horizon
    Fichier maison : ne jamais fusionner dans base.css (écrasé aux mises à jour).
    Chargé depuis snippets/stylesheets.liquid.
+   Les sélecteurs Horizon utilisés ici : #header-component, .header__row,
+   .product-grid__card, .product-badges__badge, .button, .price.
    =========================================================================== */
 
 :root {
@@ -19,7 +21,7 @@
   --cv-line: #d5dee6;
 
   /* Verre dépoli */
-  --cv-glass-bg: rgb(255 255 255 / 62%);
+  --cv-glass-bg: rgb(255 255 255 / 72%);
   --cv-glass-border: rgb(255 255 255 / 85%);
   --cv-glass-blur: blur(18px) saturate(170%);
   --cv-glass-bg-dark: rgb(3 41 66 / 62%);
@@ -27,6 +29,53 @@
 
   --cv-radius: 18px;
   --cv-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+/* --- En-tête en verre dépoli ----------------------------------------------
+   L'en-tête laisse deviner la page qui défile dessous, comme sur la maquette.
+   Un en-tête réglé sur « transparent » dans l'éditeur garde son réglage. */
+
+#header-component:not([transparent]) {
+  background: var(--cv-glass-bg);
+  -webkit-backdrop-filter: var(--cv-glass-blur);
+  backdrop-filter: var(--cv-glass-blur);
+  border-block-end: 1px solid rgb(3 41 66 / 8%);
+}
+
+#header-component .header__row {
+  transition: padding-block 0.3s var(--cv-ease);
+}
+
+/* --- Cartes produit -------------------------------------------------------- */
+
+.product-grid__card {
+  transition: transform 0.35s var(--cv-ease);
+}
+
+.product-grid__card:hover {
+  transform: translateY(-4px);
+}
+
+.product-badges__badge {
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* --- Boutons --------------------------------------------------------------- */
+
+.button {
+  transition:
+    transform 0.2s var(--cv-ease),
+    box-shadow 0.2s var(--cv-ease),
+    background-color 0.2s var(--cv-ease);
+}
+
+.button:hover {
+  transform: translateY(-1px);
+}
+
+.button:active {
+  transform: translateY(0) scale(0.985);
 }
 
 /* --- Utilitaires -----------------------------------------------------------
@@ -100,8 +149,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .product-grid__card,
+  .button,
   .cv-glass,
   .cv-halo {
     transition: none !important;
+  }
+
+  .product-grid__card:hover,
+  .button:hover {
+    transform: none;
   }
 }
