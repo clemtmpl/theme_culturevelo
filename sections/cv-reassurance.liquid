@@ -1,0 +1,112 @@
+{%- comment -%}
+  Culture Vélo — bandeau de réassurance (4 arguments avec icône).
+  Les textes par défaut sont des propositions à valider avec le magasin.
+{%- endcomment -%}
+
+<section class="cv-reassure" id="cv-reassure-{{ section.id }}">
+  <ul class="cv-reassure__list page-width" role="list">
+    {%- for block in section.blocks -%}
+      <li class="cv-reassure__item" {{ block.shopify_attributes }}>
+        <span class="cv-reassure__icon" aria-hidden="true">
+          {%- case block.settings.icon -%}
+            {%- when 'store' -%}
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9a3 3 0 006 0 3 3 0 006 0 3 3 0 006 0"/><path d="M10 20v-6h4v6"/></svg>
+            {%- when 'wrench' -%}
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"/></svg>
+            {%- when 'shield' -%}
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+            {%- else -%}
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>
+          {%- endcase -%}
+        </span>
+        <span class="cv-reassure__copy">
+          <strong class="cv-reassure__title">{{ block.settings.title | escape }}</strong>
+          {%- if block.settings.text != blank -%}
+            <span class="cv-reassure__text">{{ block.settings.text | escape }}</span>
+          {%- endif -%}
+        </span>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+
+{% stylesheet %}
+  .cv-reassure {
+    background: var(--cv-mist, #ebf0f5);
+    border-block: 1px solid var(--cv-line, #d5dee6);
+  }
+
+  .cv-reassure__list {
+    display: grid;
+    gap: 1.25rem 2rem;
+    margin-block: 0;
+    padding-block: 1.75rem;
+    padding-inline: 0;
+    list-style: none;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 990px) {
+    .cv-reassure__list { grid-template-columns: repeat(4, 1fr); }
+  }
+
+  .cv-reassure__item { display: flex; align-items: flex-start; gap: 0.875rem; }
+
+  .cv-reassure__icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    inline-size: 44px;
+    block-size: 44px;
+    border-radius: 50%;
+    color: var(--cv-blue, #0969a8);
+    background: #fff;
+    box-shadow: 0 0 0 1px var(--cv-line, #d5dee6);
+  }
+
+  .cv-reassure__copy { display: grid; gap: 0.125rem; }
+  .cv-reassure__title { font-size: 0.9375rem; color: var(--cv-navy, #032942); }
+  .cv-reassure__text { font-size: 0.8125rem; line-height: 1.45; color: rgb(3 41 66 / 70%); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "CV · Réassurance",
+  "tag": "section",
+  "class": "cv-section",
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Argument",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            { "value": "truck", "label": "Livraison" },
+            { "value": "store", "label": "Magasin" },
+            { "value": "wrench", "label": "Atelier" },
+            { "value": "shield", "label": "Garantie" }
+          ],
+          "default": "truck"
+        },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Livraison" },
+        { "type": "text", "id": "text", "label": "Texte" }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "CV · Réassurance",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "store", "title": "Retrait en magasin", "text": "Récupérez votre commande à Agen." } },
+        { "type": "item", "settings": { "icon": "wrench", "title": "Atelier sur place", "text": "Montage et réglages par l'équipe." } },
+        { "type": "item", "settings": { "icon": "truck", "title": "Livraison", "text": "Expédition de vos accessoires." } },
+        { "type": "item", "settings": { "icon": "shield", "title": "Conseils d'experts", "text": "Une équipe de passionnés à votre écoute." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

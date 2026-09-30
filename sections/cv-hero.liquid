@@ -1,0 +1,223 @@
+{%- comment -%}
+  Culture Vélo — bandeau d'accueil (hero) sombre avec verre dépoli.
+  Utilise les variables --cv-* définies dans assets/custom-culturevelo.css.
+  Tous les textes sont modifiables dans l'éditeur du thème.
+{%- endcomment -%}
+
+<section
+  class="cv-hero"
+  id="cv-hero-{{ section.id }}"
+  style="--cv-hero-min: {{ section.settings.min_height }}vh;"
+>
+  <span class="cv-halo cv-halo--blue cv-hero__halo cv-hero__halo--a" aria-hidden="true"></span>
+  <span class="cv-halo cv-halo--bright cv-hero__halo cv-hero__halo--b" aria-hidden="true"></span>
+  <span class="cv-halo cv-halo--coral cv-hero__halo cv-hero__halo--c" aria-hidden="true"></span>
+
+  <div class="cv-hero__inner page-width">
+    <div class="cv-hero__copy">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="cv-hero__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.heading != blank -%}
+        <h1 class="cv-hero__title">{{ section.settings.heading | escape }}</h1>
+      {%- endif -%}
+
+      {%- if section.settings.text != blank -%}
+        <p class="cv-hero__text">{{ section.settings.text | escape }}</p>
+      {%- endif -%}
+
+      <div class="cv-hero__actions">
+        {%- if section.settings.primary_label != blank -%}
+          <a class="cv-hero__btn cv-hero__btn--primary" href="{{ section.settings.primary_link | default: '/collections/all' }}">
+            {{- section.settings.primary_label | escape -}}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.secondary_label != blank -%}
+          <a class="cv-hero__btn cv-hero__btn--ghost" href="{{ section.settings.secondary_link | default: '/pages/contact' }}">
+            {{- section.settings.secondary_label | escape -}}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="cv-hero__visual">
+      {%- if section.settings.image != blank -%}
+        <div class="cv-hero__image">
+          {{
+            section.settings.image
+            | image_url: width: 1400
+            | image_tag:
+              loading: 'eager',
+              fetchpriority: 'high',
+              widths: '600, 900, 1200, 1400',
+              sizes: '(min-width: 990px) 50vw, 100vw',
+              alt: section.settings.image.alt
+          }}
+        </div>
+      {%- endif -%}
+
+      {%- if section.settings.show_store_card -%}
+        <aside class="cv-hero__card cv-glass cv-glass--dark" aria-label="{{ section.settings.store_name | escape }}">
+          <p class="cv-stock">{{ section.settings.store_status | escape }}</p>
+          <p class="cv-hero__card-name">{{ section.settings.store_name | escape }}</p>
+          {%- if section.settings.store_address != blank -%}
+            <p class="cv-hero__card-line">{{ section.settings.store_address | escape }}</p>
+          {%- endif -%}
+          {%- if section.settings.store_phone != blank -%}
+            <a class="cv-hero__card-phone" href="tel:{{ section.settings.store_phone | replace: ' ', '' }}">
+              {{- section.settings.store_phone | escape -}}
+            </a>
+          {%- endif -%}
+        </aside>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .cv-hero {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    min-block-size: var(--cv-hero-min, 70vh);
+    display: grid;
+    align-items: center;
+    color: #f2f7fb;
+    background:
+      radial-gradient(120% 120% at 0% 0%, var(--cv-navy-700, #05426b) 0%, transparent 55%),
+      linear-gradient(160deg, var(--cv-navy, #032942) 0%, var(--cv-navy-deep, #021d30) 100%);
+  }
+
+  .cv-hero__halo { z-index: -1; }
+  .cv-hero__halo--a { inline-size: 520px; block-size: 520px; inset-block-start: -160px; inset-inline-end: -120px; }
+  .cv-hero__halo--b { inline-size: 380px; block-size: 380px; inset-block-end: -140px; inset-inline-start: 18%; }
+  .cv-hero__halo--c { inline-size: 300px; block-size: 300px; inset-block-start: 30%; inset-inline-start: -100px; }
+
+  .cv-hero__inner {
+    display: grid;
+    gap: 2.5rem;
+    align-items: center;
+    padding-block: clamp(3rem, 8vw, 6rem);
+  }
+
+  @media (min-width: 990px) {
+    .cv-hero__inner { grid-template-columns: 1.1fr 0.9fr; }
+  }
+
+  .cv-hero__eyebrow {
+    margin: 0 0 1rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cv-sky, #90c4e6);
+  }
+
+  .cv-hero__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(2.25rem, 5.6vw, 4.25rem);
+    line-height: 1.04;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #fff;
+  }
+
+  .cv-hero__text {
+    margin: 0 0 2rem;
+    max-inline-size: 34rem;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: rgb(242 247 251 / 82%);
+  }
+
+  .cv-hero__actions { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+
+  .cv-hero__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-block-size: 48px;
+    padding-inline: 1.75rem;
+    border-radius: 999px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s var(--cv-ease, ease), background-color 0.2s var(--cv-ease, ease), border-color 0.2s var(--cv-ease, ease);
+  }
+  .cv-hero__btn:hover { transform: translateY(-2px); }
+
+  .cv-hero__btn--primary { background: var(--cv-blue-hover, #00a5e2); color: #fff; }
+  .cv-hero__btn--primary:hover { background: var(--cv-blue-mid, #0a79c1); }
+
+  .cv-hero__btn--ghost {
+    color: #fff;
+    border: 1px solid rgb(255 255 255 / 40%);
+    background: rgb(255 255 255 / 6%);
+  }
+  .cv-hero__btn--ghost:hover { background: rgb(255 255 255 / 14%); border-color: rgb(255 255 255 / 70%); }
+
+  .cv-hero__visual { position: relative; }
+
+  .cv-hero__image {
+    overflow: hidden;
+    border-radius: calc(var(--cv-radius, 18px) * 1.5);
+    box-shadow: 0 30px 80px rgb(0 0 0 / 35%);
+  }
+  .cv-hero__image img { display: block; inline-size: 100%; block-size: auto; }
+
+  .cv-hero__card {
+    display: grid;
+    gap: 0.25rem;
+    padding: 1.25rem 1.5rem;
+    max-inline-size: 20rem;
+  }
+  .cv-hero__image + .cv-hero__card {
+    position: absolute;
+    inset-block-end: -1.25rem;
+    inset-inline-start: -1rem;
+  }
+  .cv-hero__card .cv-stock { color: #5fdc9a; }
+  .cv-hero__card-name { margin: 0; font-weight: 700; color: #fff; }
+  .cv-hero__card-line { margin: 0; font-size: 0.875rem; color: rgb(242 247 251 / 75%); }
+  .cv-hero__card-phone { font-weight: 700; color: var(--cv-sky, #90c4e6); text-decoration: none; }
+  .cv-hero__card-phone:hover { text-decoration: underline; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cv-hero__btn { transition: none; }
+    .cv-hero__btn:hover { transform: none; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "CV · Bandeau d'accueil",
+  "tag": "section",
+  "class": "cv-section",
+  "settings": [
+    { "type": "header", "content": "Texte" },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Culture Vélo · Agen" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Votre prochain vélo, à Agen." },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Texte",
+      "default": "Route, gravel, VTT, électrique : venez l'essayer en magasin, ou commandez en ligne et retirez-le chez nous."
+    },
+    { "type": "header", "content": "Boutons" },
+    { "type": "text", "id": "primary_label", "label": "Bouton principal", "default": "Voir les vélos" },
+    { "type": "url", "id": "primary_link", "label": "Lien du bouton principal" },
+    { "type": "text", "id": "secondary_label", "label": "Bouton secondaire", "default": "Nous contacter" },
+    { "type": "url", "id": "secondary_link", "label": "Lien du bouton secondaire" },
+    { "type": "header", "content": "Image" },
+    { "type": "image_picker", "id": "image", "label": "Image (ex. photo du magasin ou d'un vélo)" },
+    { "type": "range", "id": "min_height", "label": "Hauteur minimale", "min": 40, "max": 100, "step": 5, "unit": "vh", "default": 70 },
+    { "type": "header", "content": "Carte magasin (verre dépoli)" },
+    { "type": "checkbox", "id": "show_store_card", "label": "Afficher la carte magasin", "default": true },
+    { "type": "text", "id": "store_status", "label": "Statut", "default": "Ouvert en magasin" },
+    { "type": "text", "id": "store_name", "label": "Nom", "default": "Culture Vélo Agen" },
+    { "type": "text", "id": "store_address", "label": "Adresse", "default": "Zac Agen Sud, Av. de l'Atlantique, 47000 Agen" },
+    { "type": "text", "id": "store_phone", "label": "Téléphone", "default": "05 53 48 08 18" }
+  ],
+  "presets": [{ "name": "CV · Bandeau d'accueil" }]
+}
+{% endschema %}

@@ -1,0 +1,165 @@
+{%- comment -%}
+  Culture Vélo — mosaïque de catégories (une tuile par collection).
+  La première tuile est plus grande sur ordinateur.
+  L'image vient de la collection, sauf si une image est choisie sur le bloc.
+{%- endcomment -%}
+
+<section class="cv-cats page-width" id="cv-cats-{{ section.id }}">
+  {%- if section.settings.heading != blank -%}
+    <header class="cv-cats__head">
+      <h2 class="cv-cats__title">{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.subheading != blank -%}
+        <p class="cv-cats__sub">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+    </header>
+  {%- endif -%}
+
+  <div class="cv-cats__grid">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign col = block.settings.collection
+        assign img = block.settings.image | default: col.featured_image
+        assign label = block.settings.title | default: col.title
+        assign href = col.url | default: '/collections/all'
+      -%}
+      <a class="cv-cats__tile{% if forloop.first %} cv-cats__tile--lead{% endif %}" href="{{ href }}" {{ block.shopify_attributes }}>
+        {%- if img != blank -%}
+          {{
+            img
+            | image_url: width: 1000
+            | image_tag:
+              loading: 'lazy',
+              widths: '400, 700, 1000',
+              sizes: '(min-width: 990px) 33vw, 50vw',
+              class: 'cv-cats__img',
+              alt: label
+          }}
+        {%- else -%}
+          <span class="cv-cats__fallback" aria-hidden="true"></span>
+        {%- endif -%}
+        <span class="cv-cats__label cv-glass cv-glass--dark">
+          <span class="cv-cats__name">{{ label | escape }}</span>
+          <span class="cv-cats__arrow" aria-hidden="true">→</span>
+        </span>
+      </a>
+    {%- else -%}
+      <p class="cv-cats__empty">Ajoutez des blocs « Catégorie » et choisissez une collection pour chacun.</p>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .cv-cats { padding-block: clamp(2.5rem, 6vw, 5rem); }
+
+  .cv-cats__head { margin-block-end: 2rem; }
+  .cv-cats__title {
+    margin: 0 0 0.5rem;
+    font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--cv-navy, #032942);
+  }
+  .cv-cats__sub { margin: 0; color: rgb(3 41 66 / 70%); }
+
+  .cv-cats__grid {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(2, 1fr);
+    grid-auto-rows: 11rem;
+  }
+
+  @media (min-width: 990px) {
+    .cv-cats__grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 14rem; gap: 1rem; }
+    .cv-cats__tile--lead { grid-column: span 2; grid-row: span 2; }
+  }
+
+  .cv-cats__tile {
+    position: relative;
+    display: block;
+    overflow: hidden;
+    border-radius: var(--cv-radius, 18px);
+    background: var(--cv-mist, #ebf0f5);
+    text-decoration: none;
+    isolation: isolate;
+  }
+
+  .cv-cats__img,
+  .cv-cats__fallback {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--cv-ease, ease);
+  }
+
+  .cv-cats__fallback {
+    background: linear-gradient(150deg, var(--cv-navy-700, #05426b), var(--cv-navy, #032942));
+  }
+
+  .cv-cats__tile:hover .cv-cats__img,
+  .cv-cats__tile:hover .cv-cats__fallback { transform: scale(1.05); }
+
+  .cv-cats__label {
+    position: absolute;
+    inset-inline: 0.75rem;
+    inset-block-end: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 0.75rem 1rem;
+    border-radius: calc(var(--cv-radius, 18px) - 4px);
+    z-index: 1;
+  }
+
+  .cv-cats__name { font-weight: 700; color: #fff; }
+  .cv-cats__arrow { color: var(--cv-sky, #90c4e6); transition: transform 0.25s var(--cv-ease, ease); }
+  .cv-cats__tile:hover .cv-cats__arrow { transform: translateX(4px); }
+
+  .cv-cats__empty { grid-column: 1 / -1; padding: 2rem; text-align: center; color: rgb(3 41 66 / 60%); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cv-cats__img, .cv-cats__fallback, .cv-cats__arrow { transition: none; }
+    .cv-cats__tile:hover .cv-cats__img,
+    .cv-cats__tile:hover .cv-cats__fallback,
+    .cv-cats__tile:hover .cv-cats__arrow { transform: none; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "CV · Catégories",
+  "tag": "section",
+  "class": "cv-section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Nos univers" },
+    { "type": "text", "id": "subheading", "label": "Sous-titre", "default": "Trouvez le vélo qui correspond à votre pratique." }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Catégorie",
+      "settings": [
+        { "type": "collection", "id": "collection", "label": "Collection" },
+        { "type": "text", "id": "title", "label": "Titre (facultatif)", "info": "Par défaut : le titre de la collection." },
+        { "type": "image_picker", "id": "image", "label": "Image (facultatif)", "info": "Par défaut : l'image de la collection." }
+      ]
+    }
+  ],
+  "max_blocks": 8,
+  "presets": [
+    {
+      "name": "CV · Catégories",
+      "blocks": [
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" },
+        { "type": "category" }
+      ]
+    }
+  ]
+}
+{% endschema %}
