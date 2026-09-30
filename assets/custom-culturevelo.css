@@ -2,8 +2,9 @@
    Culture Vélo Agen — surcouche de marque pour le thème Horizon
    Fichier maison : ne jamais fusionner dans base.css (écrasé aux mises à jour).
    Chargé depuis snippets/stylesheets.liquid.
-   Les sélecteurs Horizon utilisés ici : #header-component, .header__row,
-   .product-grid__card, .product-badges__badge, .button, .price.
+   Sélecteurs Horizon utilisés : #header-component, .header__row--top,
+   .menu-list__link, .header-logo, .action__cart, .product-grid__card,
+   .product-badges__badge, .button, .price.
    =========================================================================== */
 
 :root {
@@ -31,19 +32,88 @@
   --cv-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
-/* --- En-tête en verre dépoli ----------------------------------------------
-   L'en-tête laisse deviner la page qui défile dessous, comme sur la maquette.
+/* --- Typographie -----------------------------------------------------------
+   Titres en capitales, serrés, comme sur la maquette. Les polices elles-mêmes
+   se choisissent dans l'éditeur (Paramètres du thème → Typographie).
+   « :root:root » pour passer devant les variables générées par le thème. */
+
+:root:root {
+  --font-h1--case: uppercase;
+  --font-h2--case: uppercase;
+  --font-h3--case: uppercase;
+
+  --font-h1--letter-spacing: -0.015em;
+  --font-h2--letter-spacing: -0.015em;
+  --font-h3--letter-spacing: -0.01em;
+
+  --font-h1--line-height: 1;
+  --font-h2--line-height: 1.02;
+  --font-h3--line-height: 1.05;
+}
+
+/* --- En-tête flottant en verre dépoli --------------------------------------
+   Une pastille sombre qui flotte au-dessus de la page, comme sur la maquette.
    Un en-tête réglé sur « transparent » dans l'éditeur garde son réglage. */
 
 #header-component:not([transparent]) {
-  background: var(--cv-glass-bg);
-  -webkit-backdrop-filter: var(--cv-glass-blur);
-  backdrop-filter: var(--cv-glass-blur);
-  border-block-end: 1px solid rgb(3 41 66 / 8%);
+  background: transparent;
+  padding-block-start: 12px;
+  --cart-bubble-background: var(--cv-coral) !important;
+  --cart-bubble-text: var(--cv-navy-deep) !important;
 }
 
-#header-component .header__row {
-  transition: padding-block 0.3s var(--cv-ease);
+#header-component:not([transparent]) .header__row--top {
+  --color: #fff;
+  --color-rgb: 255 255 255;
+  --color-foreground: #fff;
+  --color-foreground-rgb: 255 255 255;
+  --color-border: rgb(255 255 255 / 16%);
+  --color-border-rgb: 255 255 255;
+
+  max-inline-size: min(1320px, calc(100% - 24px));
+  margin-inline: auto;
+  border-radius: 20px;
+  color: #fff;
+  background: rgb(3 41 66 / 82%);
+  border: 1px solid rgb(255 255 255 / 14%);
+  box-shadow: 0 18px 40px -22px rgb(2 29 48 / 60%);
+  -webkit-backdrop-filter: blur(24px) saturate(170%);
+  backdrop-filter: blur(24px) saturate(170%);
+}
+
+/* Logo texte : capitales épaisses. */
+#header-component .header-logo,
+#header-component .header-logo span {
+  font-family: var(--font-heading--family);
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+}
+
+/* Liens du menu : pastille claire au survol et sur la page courante. */
+#header-component:not([transparent]) .menu-list__link {
+  padding-inline: 14px;
+  border-radius: 12px;
+  font-weight: 600;
+  transition: background-color 0.2s var(--cv-ease);
+}
+
+#header-component:not([transparent]) .menu-list__link:hover,
+#header-component:not([transparent]) .menu-list__link[aria-current="page"] {
+  background: rgb(255 255 255 / 12%);
+}
+
+/* Panier en bouton bleu vif. */
+#header-component:not([transparent]) .action__cart {
+  background: var(--cv-blue-hover);
+  color: var(--cv-navy-deep);
+  border-radius: 12px;
+  transition: background-color 0.2s var(--cv-ease);
+}
+
+#header-component:not([transparent]) .action__cart:hover {
+  background: var(--cv-blue-mid);
+  color: #fff;
 }
 
 /* --- Cartes produit -------------------------------------------------------- */
@@ -152,7 +222,9 @@
   .product-grid__card,
   .button,
   .cv-glass,
-  .cv-halo {
+  .cv-halo,
+  #header-component .menu-list__link,
+  #header-component .action__cart {
     transition: none !important;
   }
 

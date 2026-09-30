@@ -1,0 +1,125 @@
+{%- comment -%}
+  Culture Vélo — barre de navigation flottante en bas (mobile et tablette).
+  Reprise de la maquette : verre dépoli sombre, 4 onglets, pastille de panier.
+  Masquée sur les fiches produit pour ne pas recouvrir le bouton d'ajout au panier.
+{%- endcomment -%}
+
+{%- unless request.page_type == 'product' -%}
+  {%- liquid
+    assign tab_shop_url = collections['velos'].url | default: routes.all_products_url
+    assign tab_atelier_url = pages['atelier'].url
+    if tab_atelier_url == blank
+      assign tab_atelier_url = pages['contact'].url | default: '/pages/contact'
+      assign tab_atelier_label = 'Contact'
+      assign tab_atelier_is_contact = true
+    else
+      assign tab_atelier_label = 'Atelier'
+    endif
+  -%}
+
+  <nav class="cv-tabbar cv-glass cv-glass--dark" aria-label="Navigation mobile">
+    <a href="{{ routes.root_url }}"{% if request.page_type == 'index' %} class="is-active" aria-current="page"{% endif %}>
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7v9H3z"/></svg>
+      Accueil
+    </a>
+
+    <a href="{{ tab_shop_url }}"{% if request.page_type == 'collection' or request.page_type == 'list-collections' %} class="is-active" aria-current="page"{% endif %}>
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="6" cy="16" r="4"/><circle cx="18" cy="16" r="4"/><path d="M6 16l4-8h5l3 8M10 8l2 8"/></svg>
+      Vélos
+    </a>
+
+    <a href="{{ tab_atelier_url }}"{% if request.path == tab_atelier_url %} class="is-active" aria-current="page"{% endif %}>
+      {%- if tab_atelier_is_contact -%}
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 10-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>
+      {%- else -%}
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14.5 5.5a4 4 0 00-5 5L4 16l4 4 5.5-5.5a4 4 0 005-5l-2.5 2.5-2.5-.5-.5-2.5z"/></svg>
+      {%- endif -%}
+      {{ tab_atelier_label }}
+    </a>
+
+    <a href="{{ routes.cart_url }}"{% if request.page_type == 'cart' %} class="is-active" aria-current="page"{% endif %}>
+      <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8h14l-1 12H6L5 8z"/><path d="M9 8V6a3 3 0 016 0v2"/></svg>
+      Panier
+      <span class="cv-tabbar__dot" data-cv-cart-count{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+    </a>
+  </nav>
+
+  <script>
+    (function () {
+      var dot = document.querySelector('[data-cv-cart-count]');
+      if (!dot) return;
+
+      function render(count) {
+        dot.textContent = count;
+        dot.hidden = !count;
+      }
+
+      function refresh() {
+        fetch('/cart.js', { headers: { Accept: 'application/json' } })
+          .then(function (r) { return r.json(); })
+          .then(function (cart) { render(cart.item_count); })
+          .catch(function () {});
+      }
+
+      document.addEventListener('cart:update', refresh);
+      window.addEventListener('pageshow', refresh);
+    })();
+  </script>
+{%- endunless -%}
+
+{% stylesheet %}
+  .cv-tabbar { display: none; }
+
+  @media (max-width: 989px) {
+    .cv-tabbar {
+      position: fixed;
+      inset-inline: 12px;
+      inset-block-end: calc(env(safe-area-inset-bottom, 0px) + 12px);
+      z-index: 70;
+      block-size: 66px;
+      border-radius: 22px;
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      align-items: center;
+      box-shadow: 0 18px 40px -18px rgb(2 29 48 / 65%);
+    }
+
+    .cv-tabbar a {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgb(242 247 251 / 74%);
+      text-decoration: none;
+      transition: color 0.2s var(--cv-ease, ease);
+    }
+
+    .cv-tabbar a:hover,
+    .cv-tabbar a.is-active { color: var(--cv-blue-hover, #00a5e2); }
+
+    .cv-tabbar__dot {
+      position: absolute;
+      inset-block-start: -4px;
+      inset-inline-start: calc(50% + 6px);
+      min-inline-size: 18px;
+      block-size: 18px;
+      padding-inline: 4px;
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10.5px;
+      font-weight: 700;
+      background: var(--cv-coral, #e46f62);
+      color: var(--cv-navy-deep, #021d30);
+    }
+
+    .cv-tabbar__dot[hidden] { display: none; }
+
+    /* Laisse la place de la barre sous le pied de page. */
+    body:has(.cv-tabbar) { padding-block-end: calc(66px + 24px + env(safe-area-inset-bottom, 0px)); }
+  }
+{% endstylesheet %}
