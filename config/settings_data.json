@@ -10,6 +10,10 @@
 {
   "current": {
     "page_text_color": "{{ settings.color_palette.color1 }}",
+    "type_body_font": "open_sans_n4",
+    "type_subheading_font": "archivo_n4",
+    "type_heading_font": "archivo_black_n4",
+    "type_accent_font": "open_sans_n4",
     "badge_sale_background_color": "#E46F62",
     "badge_sale_text_color": "#032942",
     "content_for_index": [],
