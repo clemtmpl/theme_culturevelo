@@ -135,6 +135,18 @@
   color: #fff;
 }
 
+/* --- Accueil : le bandeau passe sous l'en-tête flottant -----------------------
+   Seulement quand la première section de la page est notre bandeau (cv-hero),
+   pour ne pas recouvrir le contenu des autres pages. */
+
+body:has(#MainContent > .shopify-section:first-child .cv-hero) #header-group {
+  margin-block-end: -80px;
+}
+
+body:has(#MainContent > .shopify-section:first-child .cv-hero) .cv-hero__inner {
+  padding-block-start: calc(clamp(3rem, 8vw, 6rem) + 80px);
+}
+
 /* --- Cartes produit -------------------------------------------------------- */
 
 .product-grid__card {
