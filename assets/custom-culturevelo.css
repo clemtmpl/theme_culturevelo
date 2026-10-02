@@ -139,7 +139,7 @@
    Seulement quand la première section de la page est notre bandeau (cv-hero),
    pour ne pas recouvrir le contenu des autres pages. */
 
-body:has(#MainContent > .shopify-section:first-child .cv-hero) #header-group {
+body:has(#MainContent > .shopify-section:first-child .cv-hero) #header-group .header-section {
   margin-block-end: -80px;
 }
 
