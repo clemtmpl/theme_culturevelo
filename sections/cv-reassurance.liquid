@@ -4,7 +4,7 @@
 {%- endcomment -%}
 
 <section class="cv-reassure" id="cv-reassure-{{ section.id }}">
-  <ul class="cv-reassure__list page-width" role="list">
+  <ul class="cv-reassure__list cv-wrap" role="list">
     {%- for block in section.blocks -%}
       <li class="cv-reassure__item" {{ block.shopify_attributes }}>
         <span class="cv-reassure__icon" aria-hidden="true">
@@ -41,7 +41,6 @@
     gap: 1.25rem 2rem;
     margin-block: 0;
     padding-block: 1.75rem;
-    padding-inline: 0;
     list-style: none;
     grid-template-columns: repeat(2, 1fr);
   }

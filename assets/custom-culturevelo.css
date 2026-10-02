@@ -32,6 +32,18 @@
   --cv-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
+/* --- Conteneur ---------------------------------------------------------------
+   Largeur maximale centrée + marges latérales, pour nos sections sur mesure.
+   (La classe « page-width » du thème ne marche qu'à l'intérieur de sa grille.) */
+
+.cv-wrap {
+  inline-size: 100%;
+  max-inline-size: 1320px;
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 48px);
+  box-sizing: border-box;
+}
+
 /* --- Typographie -----------------------------------------------------------
    Titres en capitales, serrés, comme sur la maquette. Les polices elles-mêmes
    se choisissent dans l'éditeur (Paramètres du thème → Typographie).
@@ -58,6 +70,12 @@
 #header-component:not([transparent]) {
   background: transparent;
   padding-block-start: 12px;
+
+  /* Le thème peint le fond de l'en-tête avec des « sous-couches » (underlays) et force
+     les lignes en transparent. On rend les sous-couches transparentes et on peint
+     nous-mêmes la pastille. */
+  --color-background-top-row: transparent !important;
+  --color-background-bottom-row: transparent !important;
   --cart-bubble-background: var(--cv-coral) !important;
   --cart-bubble-text: var(--cv-navy-deep) !important;
 }
@@ -74,7 +92,8 @@
   margin-inline: auto;
   border-radius: 20px;
   color: #fff;
-  background: rgb(3 41 66 / 82%);
+  /* background-color est verrouillé par le thème (!important) : on passe par une image. */
+  background-image: linear-gradient(rgb(3 41 66 / 82%), rgb(3 41 66 / 82%));
   border: 1px solid rgb(255 255 255 / 14%);
   box-shadow: 0 18px 40px -22px rgb(2 29 48 / 60%);
   -webkit-backdrop-filter: blur(24px) saturate(170%);
