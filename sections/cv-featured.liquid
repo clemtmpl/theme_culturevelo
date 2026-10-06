@@ -1,0 +1,259 @@
+{%- comment -%}
+  Culture Vélo — produits en vedette.
+  Prend les produits d'une collection. Sans collection choisie, affiche des
+  cartes d'exemple pour que le design reste visible dans l'éditeur.
+{%- endcomment -%}
+
+{%- liquid
+  assign collection = section.settings.collection
+  assign limit = section.settings.products_to_show
+  assign see_all_url = collection.url | default: routes.all_products_url
+-%}
+
+<section class="cv-feat cv-wrap" id="cv-feat-{{ section.id }}">
+  <header class="cv-feat__head">
+    <div>
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="cv-feat__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      {%- if section.settings.heading != blank -%}
+        <h2 class="cv-feat__title">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+    </div>
+    {%- if section.settings.link_label != blank -%}
+      <a class="cv-feat__all" href="{{ see_all_url }}">{{ section.settings.link_label | escape }} <span aria-hidden="true">→</span></a>
+    {%- endif -%}
+  </header>
+
+  <ul class="cv-feat__grid" role="list">
+    {%- if collection != blank and collection.products_count > 0 -%}
+      {%- for product in collection.products limit: limit -%}
+        {%- liquid
+          assign on_sale = false
+          if product.compare_at_price > product.price
+            assign on_sale = true
+          endif
+        -%}
+        <li class="cv-feat__item">
+          <a class="cv-card" href="{{ product.url }}">
+            <span class="cv-card__media">
+              {%- if product.featured_media -%}
+                {{
+                  product.featured_media
+                  | image_url: width: 800
+                  | image_tag:
+                    loading: 'lazy',
+                    widths: '300, 500, 800',
+                    sizes: '(min-width: 990px) 25vw, 50vw',
+                    class: 'cv-card__img',
+                    alt: product.featured_media.alt
+                }}
+              {%- else -%}
+                {{ 'product-1' | placeholder_svg_tag: 'cv-card__img' }}
+              {%- endif -%}
+              {%- if on_sale -%}
+                <span class="cv-card__badge">Promo</span>
+              {%- elsif product.available == false -%}
+                <span class="cv-card__badge cv-card__badge--muted">Épuisé</span>
+              {%- endif -%}
+            </span>
+            <span class="cv-card__body">
+              {%- if product.vendor != blank -%}
+                <span class="cv-card__vendor">{{ product.vendor | escape }}</span>
+              {%- endif -%}
+              <span class="cv-card__name">{{ product.title | escape }}</span>
+              <span class="cv-card__price">
+                {%- if on_sale -%}
+                  <s>{{ product.compare_at_price | money }}</s>
+                {%- endif -%}
+                {{ product.price | money }}
+              </span>
+              {%- if section.settings.show_stock -%}
+                {%- if product.available -%}
+                  <span class="cv-stock">En stock</span>
+                {%- else -%}
+                  <span class="cv-stock cv-stock--order">Sur commande</span>
+                {%- endif -%}
+              {%- endif -%}
+            </span>
+          </a>
+        </li>
+      {%- endfor -%}
+    {%- else -%}
+      {%- for i in (1..4) -%}
+        <li class="cv-feat__item" {% if request.design_mode == false %}aria-hidden="true"{% endif %}>
+          <span class="cv-card cv-card--sample">
+            <span class="cv-card__media">
+              {{ 'product-' | append: i | placeholder_svg_tag: 'cv-card__img' }}
+              {%- if i == 2 -%}<span class="cv-card__badge">Promo</span>{%- endif -%}
+            </span>
+            <span class="cv-card__body">
+              <span class="cv-card__vendor">Marque</span>
+              <span class="cv-card__name">Nom du produit</span>
+              <span class="cv-card__price">0,00 €</span>
+              {%- if section.settings.show_stock -%}<span class="cv-stock">En stock</span>{%- endif -%}
+            </span>
+          </span>
+        </li>
+      {%- endfor -%}
+    {%- endif -%}
+  </ul>
+</section>
+
+{% stylesheet %}
+  .cv-feat { padding-block: clamp(2.5rem, 6vw, 5rem); }
+
+  .cv-feat__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    margin-block-end: 2rem;
+  }
+
+  .cv-feat__eyebrow {
+    margin: 0 0 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cv-blue, #0969a8);
+  }
+
+  .cv-feat__title {
+    margin: 0;
+    font-family: var(--font-heading--family);
+    font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+    line-height: 1;
+    font-weight: 800;
+    font-stretch: 115%;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    color: var(--cv-navy, #032942);
+  }
+
+  .cv-feat__all {
+    font-weight: 700;
+    color: var(--cv-navy, #032942);
+    text-decoration: none;
+    border-block-end: 2px solid currentcolor;
+    padding-block-end: 3px;
+  }
+  .cv-feat__all:hover { color: var(--cv-blue, #0969a8); }
+
+  .cv-feat__grid {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (min-width: 990px) {
+    .cv-feat__grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1.375rem; }
+  }
+
+  .cv-card {
+    display: flex;
+    flex-direction: column;
+    block-size: 100%;
+    overflow: hidden;
+    color: inherit;
+    text-decoration: none;
+    background: #fff;
+    border: 1px solid var(--cv-line, #d5dee6);
+    border-radius: var(--cv-radius, 18px);
+    transition: transform 0.35s var(--cv-ease, ease), box-shadow 0.35s var(--cv-ease, ease);
+  }
+
+  .cv-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 24px 40px -26px rgb(3 41 66 / 45%);
+  }
+
+  .cv-card__media {
+    position: relative;
+    display: block;
+    aspect-ratio: 1;
+    overflow: hidden;
+    background: var(--cv-mist, #ebf0f5);
+  }
+
+  .cv-card__img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    transition: transform 0.6s var(--cv-ease, ease);
+  }
+  .cv-card:hover .cv-card__img { transform: scale(1.05); }
+
+  .cv-card__badge {
+    position: absolute;
+    inset-block-start: 0.75rem;
+    inset-inline-start: 0.75rem;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    background: var(--cv-coral, #e46f62);
+    color: var(--cv-navy-deep, #021d30);
+  }
+  .cv-card__badge--muted { background: var(--cv-navy, #032942); color: #fff; }
+
+  .cv-card__body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 1rem 1.125rem 1.25rem;
+  }
+
+  .cv-card__vendor {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgb(3 41 66 / 60%);
+  }
+
+  .cv-card__name {
+    font-weight: 700;
+    line-height: 1.3;
+    color: var(--cv-navy, #032942);
+  }
+
+  .cv-card__price {
+    margin-block: 0.25rem 0.5rem;
+    font-size: 1.0625rem;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    color: var(--cv-navy, #032942);
+  }
+  .cv-card__price s { margin-inline-end: 0.5rem; font-weight: 500; color: rgb(3 41 66 / 50%); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cv-card, .cv-card__img { transition: none; }
+    .cv-card:hover, .cv-card:hover .cv-card__img { transform: none; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "CV · Produits en vedette",
+  "tag": "section",
+  "class": "cv-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Sélection du magasin" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Nos coups de cœur" },
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Sans collection, des cartes d'exemple s'affichent." },
+    { "type": "range", "id": "products_to_show", "label": "Nombre de produits", "min": 4, "max": 12, "step": 4, "default": 4 },
+    { "type": "text", "id": "link_label", "label": "Texte du lien", "default": "Tout voir" },
+    { "type": "checkbox", "id": "show_stock", "label": "Afficher la disponibilité", "default": true }
+  ],
+  "presets": [{ "name": "CV · Produits en vedette" }]
+}
+{% endschema %}
