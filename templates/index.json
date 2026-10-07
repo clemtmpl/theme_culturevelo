@@ -132,11 +132,24 @@
         "heading": "Nos univers",
         "subheading": "Trouvez le vélo qui correspond à votre pratique."
       }
+    },
+    "cv_featured_giyYLE": {
+      "type": "cv-featured",
+      "name": "CV · Produits en vedette",
+      "settings": {
+        "eyebrow": "Sélection du magasin",
+        "heading": "Nos coups de cœur",
+        "collection": "",
+        "products_to_show": 4,
+        "link_label": "Tout voir",
+        "show_stock": true
+      }
     }
   },
   "order": [
     "cv_hero_Jach9H",
     "cv_reassurance_UxPgxK",
-    "cv_categories_WEhhpE"
+    "cv_categories_WEhhpE",
+    "cv_featured_giyYLE"
   ]
 }
