@@ -144,12 +144,111 @@
         "link_label": "Tout voir",
         "show_stock": true
       }
+    },
+    "cv_atelier_CgARVe": {
+      "type": "cv-atelier",
+      "blocks": {
+        "service_JaAg8R": {
+          "type": "service",
+          "settings": {
+            "title": "Montage et réglages",
+            "text": "Chaque vélo est préparé par l'atelier avant de partir."
+          }
+        },
+        "service_pfjwxB": {
+          "type": "service",
+          "settings": {
+            "title": "Entretien et réparation",
+            "text": "Toutes marques, vélos électriques compris."
+          }
+        },
+        "service_6qT49y": {
+          "type": "service",
+          "settings": {
+            "title": "Retrait en magasin",
+            "text": "Commandez en ligne, récupérez à Agen."
+          }
+        },
+        "brand_QLGHNB": {
+          "type": "brand",
+          "settings": {
+            "name": "Marque 1"
+          }
+        },
+        "brand_6yhwhK": {
+          "type": "brand",
+          "settings": {
+            "name": "Marque 2"
+          }
+        },
+        "brand_HreXBF": {
+          "type": "brand",
+          "settings": {
+            "name": "Marque 3"
+          }
+        },
+        "brand_FFhBnX": {
+          "type": "brand",
+          "settings": {
+            "name": "Marque 4"
+          }
+        },
+        "brand_kzNgWQ": {
+          "type": "brand",
+          "settings": {
+            "name": "Marque 5"
+          }
+        },
+        "brand_H3bdNw": {
+          "type": "brand",
+          "settings": {
+            "name": "Marque 6"
+          }
+        }
+      },
+      "block_order": [
+        "service_JaAg8R",
+        "service_pfjwxB",
+        "service_6qT49y",
+        "brand_QLGHNB",
+        "brand_6yhwhK",
+        "brand_HreXBF",
+        "brand_FFhBnX",
+        "brand_kzNgWQ",
+        "brand_H3bdNw"
+      ],
+      "name": "CV · Atelier",
+      "settings": {
+        "eyebrow": "L'atelier",
+        "heading": "Entretien & réparation toutes marques",
+        "text": "Notre équipe vous conseille, assemble et entretient votre vélo, vélos électriques compris.",
+        "button_label": "Prendre rendez-vous",
+        "button_link": "",
+        "chip": "Toutes marques, VAE compris",
+        "brands_title": "Les marques du magasin"
+      }
+    },
+    "cv_store_YxJCk7": {
+      "type": "cv-store",
+      "name": "CV · Magasin (carte)",
+      "settings": {
+        "eyebrow": "Le magasin",
+        "heading": "Venez nous voir",
+        "store_name": "Culture Vélo Agen",
+        "address": "Zac Agen Sud, Av. de l'Atlantique, 47000 Agen",
+        "phone": "05 53 48 08 18",
+        "hours": "Lundi - Samedi | À compléter\nDimanche | À compléter",
+        "contact_label": "Nous contacter",
+        "contact_link": ""
+      }
     }
   },
   "order": [
     "cv_hero_Jach9H",
     "cv_reassurance_UxPgxK",
     "cv_categories_WEhhpE",
-    "cv_featured_giyYLE"
+    "cv_featured_giyYLE",
+    "cv_atelier_CgARVe",
+    "cv_store_YxJCk7"
   ]
 }
