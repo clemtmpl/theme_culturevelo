@@ -1,180 +1,143 @@
 {%- comment -%}
-  Culture Vélo — magasin & atelier : panneau sombre avec services (blocs)
-  et carte magasin en verre dépoli (adresse, horaires, téléphone, itinéraire).
-  Les horaires par défaut sont à compléter avec le magasin.
+  Culture Vélo — « Venez nous voir » : carte stylisée du quartier et fiche du
+  magasin en verre dépoli (adresse, horaires, boutons). Les horaires par
+  défaut sont à compléter avec le magasin.
 {%- endcomment -%}
 
-<section class="cv-store" id="cv-store-{{ section.id }}">
-  <span class="cv-halo cv-halo--blue cv-store__halo cv-store__halo--a" aria-hidden="true"></span>
-  <span class="cv-halo cv-halo--coral cv-store__halo cv-store__halo--b" aria-hidden="true"></span>
+<section class="cv-store cv-wrap" id="cv-store-{{ section.id }}">
+  <div class="cv-store__panel">
+    <svg class="cv-store__map" viewBox="0 0 1200 520" preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+      <rect width="1200" height="520" fill="#E3EBF2"/>
+      <g stroke="#FFFFFF" stroke-width="14" fill="none" stroke-linecap="round">
+        <path d="M-20 380 C 200 340, 400 420, 640 300 S 1000 180, 1240 220"/>
+        <path d="M700 -20 C 690 120, 760 260, 720 540"/>
+        <path d="M300 -20 L 380 540"/>
+        <path d="M-20 140 C 300 160, 520 100, 1240 90"/>
+      </g>
+      <g stroke="#CBD8E3" stroke-width="5" fill="none"><path d="M500 0 L560 520 M0 260 L1200 300 M880 0 L940 520 M150 0 L120 520"/></g>
+      <path d="M950 380 C 1020 340 1120 360 1220 330 L1220 540 L900 540Z" fill="#CFE3F2"/>
+      <g transform="translate(830 250)">
+        <circle r="46" fill="#0969A8" opacity=".18"/>
+        <circle r="22" fill="#0969A8"/>
+        <circle r="8" fill="#fff"/>
+      </g>
+    </svg>
 
-  <div class="cv-store__inner cv-wrap">
-    <div class="cv-store__copy">
+    <div class="cv-store__card cv-glass">
       {%- if section.settings.eyebrow != blank -%}
         <p class="cv-store__eyebrow">{{ section.settings.eyebrow | escape }}</p>
       {%- endif -%}
       {%- if section.settings.heading != blank -%}
         <h2 class="cv-store__title">{{ section.settings.heading | escape }}</h2>
       {%- endif -%}
-      {%- if section.settings.text != blank -%}
-        <p class="cv-store__text">{{ section.settings.text | escape }}</p>
-      {%- endif -%}
 
-      <ul class="cv-store__services" role="list">
-        {%- for block in section.blocks -%}
-          <li class="cv-store__service" {{ block.shopify_attributes }}>
-            <span class="cv-store__check" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>
-            </span>
-            <span>
-              <strong>{{ block.settings.title | escape }}</strong>
-              {%- if block.settings.text != blank -%}
-                <span class="cv-store__service-text">{{ block.settings.text | escape }}</span>
-              {%- endif -%}
-            </span>
-          </li>
-        {%- endfor -%}
-      </ul>
-    </div>
-
-    <aside class="cv-store__card cv-glass cv-glass--dark" aria-label="Informations du magasin">
-      <p class="cv-stock">{{ section.settings.status | escape }}</p>
-      <h3 class="cv-store__card-name">{{ section.settings.store_name | escape }}</h3>
-
-      {%- if section.settings.address != blank -%}
-        <p class="cv-store__line">{{ section.settings.address | escape }}</p>
-      {%- endif -%}
+      <p class="cv-store__address">
+        {%- if section.settings.store_name != blank -%}<strong>{{ section.settings.store_name | escape }}</strong><br>{%- endif -%}
+        {{ section.settings.address | escape }}
+        {%- if section.settings.phone != blank -%}
+          <br><a href="tel:{{ section.settings.phone | replace: ' ', '' }}">{{ section.settings.phone | escape }}</a>
+        {%- endif -%}
+      </p>
 
       {%- if section.settings.hours != blank -%}
-        <ul class="cv-store__hours" role="list">
+        <dl class="cv-store__hours">
           {%- assign hours_lines = section.settings.hours | newline_to_br | split: '<br />' -%}
           {%- for line in hours_lines -%}
             {%- assign clean = line | strip | strip_newlines -%}
             {%- if clean != blank -%}
               {%- assign parts = clean | split: '|' -%}
-              <li>
-                <span>{{ parts[0] | strip | escape }}</span>
-                <span>{{ parts[1] | strip | escape }}</span>
-              </li>
+              <dt>{{ parts[0] | strip | escape }}</dt>
+              <dd>{{ parts[1] | strip | escape }}</dd>
             {%- endif -%}
           {%- endfor -%}
-        </ul>
+        </dl>
       {%- endif -%}
 
       <div class="cv-store__actions">
-        {%- if section.settings.phone != blank -%}
-          <a class="cv-store__btn cv-store__btn--primary" href="tel:{{ section.settings.phone | replace: ' ', '' }}">
-            {{- section.settings.phone | escape -}}
-          </a>
-        {%- endif -%}
         {%- if section.settings.address != blank -%}
           <a
-            class="cv-store__btn cv-store__btn--ghost"
+            class="cv-store__btn cv-store__btn--primary"
             href="https://www.google.com/maps/search/?api=1&query={{ section.settings.address | url_encode }}"
             target="_blank"
             rel="noopener"
           >Itinéraire</a>
         {%- endif -%}
+        {%- if section.settings.contact_label != blank -%}
+          <a class="cv-store__btn cv-store__btn--ghost" href="{{ section.settings.contact_link | default: '/pages/contact' }}">
+            {{- section.settings.contact_label | escape -}}
+          </a>
+        {%- endif -%}
       </div>
-    </aside>
+    </div>
   </div>
 </section>
 
 {% stylesheet %}
-  .cv-store {
+  .cv-store { padding-block: clamp(2.5rem, 6vw, 5rem); }
+
+  .cv-store__panel {
     position: relative;
+    min-block-size: 480px;
     overflow: hidden;
-    isolation: isolate;
-    color: #f2f7fb;
-    background: linear-gradient(160deg, var(--cv-navy, #032942) 0%, var(--cv-navy-deep, #021d30) 100%);
+    border-radius: 34px;
+    background: var(--cv-mist, #ebf0f5);
   }
 
-  .cv-store__halo { z-index: -1; }
-  .cv-store__halo--a { inline-size: 480px; block-size: 480px; inset-block-start: -180px; inset-inline-start: -120px; }
-  .cv-store__halo--b { inline-size: 340px; block-size: 340px; inset-block-end: -160px; inset-inline-end: 8%; }
+  .cv-store__map { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; }
 
-  .cv-store__inner {
-    display: grid;
-    gap: 2.5rem;
-    align-items: center;
-    padding-block: clamp(3rem, 7vw, 5.5rem);
+  .cv-store__card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-inline-size: 440px;
+    margin: 12px;
+    padding: 1.5rem;
+    border-radius: 26px;
+    color: var(--cv-navy, #032942);
+    box-shadow: 0 24px 60px -30px rgb(3 41 66 / 45%);
   }
 
-  @media (min-width: 990px) {
-    .cv-store__inner { grid-template-columns: 1.1fr 0.9fr; gap: 4rem; }
+  @media (min-width: 750px) {
+    .cv-store__card { margin: 28px; padding: 2rem; }
   }
 
   .cv-store__eyebrow {
-    margin: 0 0 1rem;
+    margin: 0;
     font-size: 0.8125rem;
     font-weight: 700;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: var(--cv-sky, #90c4e6);
+    color: var(--cv-blue, #0969a8);
   }
 
   .cv-store__title {
-    margin: 0 0 1.25rem;
+    margin: 0;
     font-family: var(--font-heading--family);
-    font-size: clamp(2rem, 4.6vw, 3.25rem);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
     line-height: 1;
     font-weight: 800;
     font-stretch: 115%;
     letter-spacing: -0.015em;
     text-transform: uppercase;
-    text-wrap: balance;
-    color: #fff;
+    color: var(--cv-navy, #032942);
   }
 
-  .cv-store__text {
-    margin: 0 0 1.75rem;
-    max-inline-size: 34rem;
-    line-height: 1.6;
-    color: rgb(242 247 251 / 80%);
-  }
-
-  .cv-store__services { display: grid; gap: 1rem; margin: 0; padding: 0; list-style: none; }
-  .cv-store__service { display: flex; align-items: flex-start; gap: 0.875rem; }
-  .cv-store__service strong { display: block; color: #fff; }
-  .cv-store__service-text { display: block; font-size: 0.875rem; line-height: 1.45; color: rgb(242 247 251 / 72%); }
-
-  .cv-store__check {
-    flex: none;
-    display: grid;
-    place-items: center;
-    inline-size: 32px;
-    block-size: 32px;
-    border-radius: 10px;
-    color: var(--cv-blue-hover, #00a5e2);
-    background: rgb(255 255 255 / 8%);
-    border: 1px solid rgb(255 255 255 / 14%);
-  }
-
-  .cv-store__card { display: grid; gap: 0.75rem; padding: 1.75rem; border-radius: calc(var(--cv-radius, 18px) * 1.4); }
-  .cv-store__card .cv-stock { color: #5fdc9a; }
-  .cv-store__card-name {
-    margin: 0;
-    font-family: var(--font-heading--family);
-    font-size: 1.5rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    color: #fff;
-  }
-  .cv-store__line { margin: 0; color: rgb(242 247 251 / 80%); }
+  .cv-store__address { margin: 0; font-size: 0.96875rem; line-height: 1.55; }
+  .cv-store__address a { font-weight: 700; color: var(--cv-blue, #0969a8); text-decoration: none; }
+  .cv-store__address a:hover { text-decoration: underline; }
 
   .cv-store__hours {
     display: grid;
-    gap: 0.375rem;
-    margin: 0.25rem 0;
-    padding: 0.875rem 0;
-    list-style: none;
-    border-block: 1px solid rgb(255 255 255 / 14%);
-    font-size: 0.9375rem;
+    grid-template-columns: auto 1fr;
+    gap: 0.25rem 1.125rem;
+    margin: 0;
+    font-size: 0.90625rem;
   }
-  .cv-store__hours li { display: flex; justify-content: space-between; gap: 1rem; }
-  .cv-store__hours li span:last-child { font-variant-numeric: tabular-nums; color: #fff; }
+  .cv-store__hours dt { color: rgb(3 41 66 / 62%); }
+  .cv-store__hours dd { margin: 0; font-weight: 600; font-variant-numeric: tabular-nums; }
 
-  .cv-store__actions { display: flex; flex-wrap: wrap; gap: 0.625rem; margin-block-start: 0.5rem; }
+  .cv-store__actions { display: flex; flex-wrap: wrap; gap: 0.625rem; }
 
   .cv-store__btn {
     display: inline-flex;
@@ -188,10 +151,10 @@
     transition: transform 0.2s var(--cv-ease, ease), background-color 0.2s var(--cv-ease, ease);
   }
   .cv-store__btn:hover { transform: translateY(-2px); }
-  .cv-store__btn--primary { background: var(--cv-blue-hover, #00a5e2); color: #fff; }
-  .cv-store__btn--primary:hover { background: var(--cv-blue-mid, #0a79c1); }
-  .cv-store__btn--ghost { color: #fff; border: 1px solid rgb(255 255 255 / 40%); background: rgb(255 255 255 / 6%); }
-  .cv-store__btn--ghost:hover { background: rgb(255 255 255 / 14%); }
+  .cv-store__btn--primary { background: var(--cv-blue, #0969a8); color: #fff; }
+  .cv-store__btn--primary:hover { background: var(--cv-navy, #032942); }
+  .cv-store__btn--ghost { color: var(--cv-navy, #032942); border: 1.5px solid var(--cv-navy, #032942); }
+  .cv-store__btn--ghost:hover { background: var(--cv-navy, #032942); color: #fff; }
 
   @media (prefers-reduced-motion: reduce) {
     .cv-store__btn { transition: none; }
@@ -201,21 +164,12 @@
 
 {% schema %}
 {
-  "name": "CV · Magasin & atelier",
+  "name": "CV · Magasin (carte)",
   "tag": "section",
   "class": "cv-section",
   "settings": [
-    { "type": "header", "content": "Texte" },
-    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Le magasin & l'atelier" },
-    { "type": "text", "id": "heading", "label": "Titre", "default": "Un vélo bien monté, bien réglé." },
-    {
-      "type": "textarea",
-      "id": "text",
-      "label": "Texte",
-      "default": "Notre équipe vous conseille, assemble et entretient votre vélo, toutes marques."
-    },
-    { "type": "header", "content": "Carte magasin" },
-    { "type": "text", "id": "status", "label": "Statut", "default": "Ouvert en magasin" },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Le magasin" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Venez nous voir" },
     { "type": "text", "id": "store_name", "label": "Nom", "default": "Culture Vélo Agen" },
     { "type": "text", "id": "address", "label": "Adresse", "default": "Zac Agen Sud, Av. de l'Atlantique, 47000 Agen" },
     { "type": "text", "id": "phone", "label": "Téléphone", "default": "05 53 48 08 18" },
@@ -225,28 +179,10 @@
       "label": "Horaires",
       "info": "Une ligne par jour, au format : Jour | Horaires",
       "default": "Lundi - Samedi | À compléter\nDimanche | À compléter"
-    }
+    },
+    { "type": "text", "id": "contact_label", "label": "Bouton secondaire", "default": "Nous contacter" },
+    { "type": "url", "id": "contact_link", "label": "Lien du bouton secondaire" }
   ],
-  "blocks": [
-    {
-      "type": "service",
-      "name": "Service",
-      "settings": [
-        { "type": "text", "id": "title", "label": "Titre", "default": "Service" },
-        { "type": "text", "id": "text", "label": "Texte" }
-      ]
-    }
-  ],
-  "max_blocks": 6,
-  "presets": [
-    {
-      "name": "CV · Magasin & atelier",
-      "blocks": [
-        { "type": "service", "settings": { "title": "Montage et réglages", "text": "Chaque vélo est préparé par l'atelier avant de partir." } },
-        { "type": "service", "settings": { "title": "Entretien et réparation", "text": "Toutes marques, vélos électriques compris." } },
-        { "type": "service", "settings": { "title": "Retrait en magasin", "text": "Commandez en ligne, récupérez à Agen." } }
-      ]
-    }
-  ]
+  "presets": [{ "name": "CV · Magasin (carte)" }]
 }
 {% endschema %}
