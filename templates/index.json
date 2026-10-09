@@ -172,37 +172,37 @@
         "brand_QLGHNB": {
           "type": "brand",
           "settings": {
-            "name": "Marque 1"
+            "name": "Trek"
           }
         },
         "brand_6yhwhK": {
           "type": "brand",
           "settings": {
-            "name": "Marque 2"
+            "name": "Scott"
           }
         },
         "brand_HreXBF": {
           "type": "brand",
           "settings": {
-            "name": "Marque 3"
+            "name": "Lapierre"
           }
         },
         "brand_FFhBnX": {
           "type": "brand",
           "settings": {
-            "name": "Marque 4"
+            "name": "Look"
           }
         },
         "brand_kzNgWQ": {
           "type": "brand",
           "settings": {
-            "name": "Marque 5"
+            "name": "Factor"
           }
         },
         "brand_H3bdNw": {
           "type": "brand",
           "settings": {
-            "name": "Marque 6"
+            "name": "Moustache"
           }
         }
       },
@@ -237,7 +237,7 @@
         "store_name": "Culture Vélo Agen",
         "address": "Zac Agen Sud, Av. de l'Atlantique, 47000 Agen",
         "phone": "05 53 48 08 18",
-        "hours": "Lundi - Samedi | À compléter\nDimanche | À compléter",
+        "hours": "Mardi - Vendredi | 9h30-12h / 14h-18h30\nSamedi | 9h30-12h / 14h-18h\nLundi | Fermé\nDimanche | Fermé",
         "contact_label": "Nous contacter",
         "contact_link": ""
       }
