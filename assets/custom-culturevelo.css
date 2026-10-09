@@ -162,6 +162,99 @@ body:has(#MainContent > .shopify-section:first-child .cv-hero) .cv-hero__inner {
   letter-spacing: 0.02em;
 }
 
+/* --- Collections : cartes produit en cartes arrondies ---------------------------
+   La photo occupe le haut de la carte, le texte est décalé de 16 px sur les côtés. */
+
+.product-card__content.product-grid__card {
+  background: #fff;
+  border: 1px solid var(--cv-line);
+  border-radius: var(--cv-radius);
+  padding: 0;
+  transition:
+    transform 0.35s var(--cv-ease),
+    box-shadow 0.35s var(--cv-ease);
+}
+
+.product-card__content.product-grid__card:hover {
+  box-shadow: 0 24px 40px -26px rgb(3 41 66 / 45%);
+}
+
+.product-card__content.product-grid__card > :not(.card-gallery) {
+  padding-inline: 16px;
+}
+
+.product-card__content.product-grid__card > :last-child {
+  padding-block-end: 16px;
+}
+
+.product-card__content.product-grid__card > .card-gallery {
+  background: var(--cv-mist);
+}
+
+.product-card__content.product-grid__card .price,
+.product-card__content.product-grid__card .price * {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--cv-navy);
+}
+
+.product-card__content.product-grid__card h4,
+.product-card__content.product-grid__card .h4,
+.product-card__content.product-grid__card .product-title {
+  font-weight: 700;
+  color: var(--cv-navy);
+}
+
+/* Pastilles de promo / épuisé. */
+.product-badges__badge {
+  background: var(--cv-coral);
+  color: var(--cv-navy-deep);
+  text-transform: uppercase;
+}
+
+/* --- Fiche produit ----------------------------------------------------------
+   Titre en capitales épaisses, prix et variantes en bleu marine. */
+
+.product-details h1,
+.product-details .h1 {
+  font-weight: 800;
+  font-stretch: 115%;
+  text-transform: uppercase;
+  letter-spacing: -0.015em;
+  line-height: 1.02;
+  color: var(--cv-navy);
+}
+
+.product-details .price,
+.product-details .price * {
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--cv-navy);
+}
+
+.product-details .price {
+  font-size: 1.5rem;
+}
+
+/* Boutons de variantes (tailles, couleurs) en pastilles. */
+.product-details .variant-option__button-label {
+  border-radius: 12px;
+  transition:
+    background-color 0.2s var(--cv-ease),
+    border-color 0.2s var(--cv-ease);
+}
+
+/* Bouton Ajouter au panier : arrondi, comme l'en-tête. */
+add-to-cart-component .button {
+  border-radius: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+/* Variante « stock bas » de la pastille de disponibilité. */
+.cv-stock--low { color: #b4531a; }
+.cv-stock--low::before { box-shadow: 0 0 0 4px rgb(180 83 26 / 14%); }
+
 /* --- Boutons --------------------------------------------------------------- */
 
 .button {

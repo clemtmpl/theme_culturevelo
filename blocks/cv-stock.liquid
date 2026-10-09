@@ -1,0 +1,104 @@
+{%- comment -%}
+  Culture Vélo — disponibilité du produit : pastille « En stock » / « Plus que N »
+  / « Sur commande », et ligne de retrait gratuit en magasin.
+  Utilisable dans la fiche produit et dans les cartes produit des collections.
+  Pour l'instant la disponibilité vient de Shopify ; elle suivra le stock du
+  magasin quand la synchro avec le logiciel de caisse sera en place.
+{%- endcomment -%}
+
+{%- liquid
+  assign block_settings = block.settings
+  assign product = closest.product
+  assign variant = product.selected_or_first_available_variant
+  assign stock_left = 0
+
+  if product.available
+    assign status = 'in'
+    if variant.inventory_management == 'shopify' and variant.inventory_quantity > 0
+      if variant.inventory_quantity <= block_settings.low_threshold
+        assign status = 'low'
+        assign stock_left = variant.inventory_quantity
+      endif
+    endif
+  else
+    assign status = 'order'
+  endif
+-%}
+
+<div
+  class="cv-stockblock spacing-style"
+  style="{% render 'spacing-style', settings: block_settings %}"
+  {{ block.shopify_attributes }}
+>
+  {%- if status == 'in' -%}
+    <span class="cv-stock">En stock</span>
+  {%- elsif status == 'low' -%}
+    <span class="cv-stock cv-stock--low">
+      {%- if stock_left == 1 -%}Plus qu'un en stock{%- else -%}Plus que {{ stock_left }} en stock{%- endif -%}
+    </span>
+  {%- else -%}
+    <span class="cv-stock cv-stock--order">Sur commande</span>
+  {%- endif -%}
+
+  {%- if status == 'order' and block_settings.order_text != blank -%}
+    <span class="cv-stockblock__note">{{ block_settings.order_text | escape }}</span>
+  {%- elsif block_settings.show_pickup and block_settings.pickup_text != blank -%}
+    <span class="cv-stockblock__note">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9a3 3 0 006 0 3 3 0 006 0 3 3 0 006 0"/></svg>
+      {{ block_settings.pickup_text | escape }}
+    </span>
+  {%- endif -%}
+</div>
+
+{% stylesheet %}
+  .cv-stockblock {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.375rem;
+  }
+
+  .cv-stock--low { color: #b4531a; }
+  .cv-stock--low::before { box-shadow: 0 0 0 4px rgb(180 83 26 / 14%); }
+
+  .cv-stockblock__note {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4375rem;
+    font-size: 0.8125rem;
+    color: rgb(3 41 66 / 68%);
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "CV · Disponibilité",
+  "tag": null,
+  "settings": [
+    {
+      "type": "range",
+      "id": "low_threshold",
+      "label": "Afficher « Plus que N » à partir de",
+      "info": "Seulement si le suivi de stock Shopify est activé sur le produit.",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "default": 3
+    },
+    { "type": "checkbox", "id": "show_pickup", "label": "Afficher le retrait en magasin", "default": true },
+    { "type": "text", "id": "pickup_text", "label": "Texte du retrait", "default": "Retrait gratuit au magasin d'Agen" },
+    { "type": "text", "id": "order_text", "label": "Texte « sur commande »", "default": "Délai confirmé par le magasin" },
+    { "type": "header", "content": "t:content.padding" },
+    { "type": "range", "id": "padding-block-start", "label": "t:settings.top", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding-block-end", "label": "t:settings.bottom", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding-inline-start", "label": "t:settings.left", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 },
+    { "type": "range", "id": "padding-inline-end", "label": "t:settings.right", "min": 0, "max": 100, "step": 1, "unit": "px", "default": 0 }
+  ],
+  "presets": [
+    {
+      "name": "CV · Disponibilité",
+      "category": "t:categories.product"
+    }
+  ]
+}
+{% endschema %}
