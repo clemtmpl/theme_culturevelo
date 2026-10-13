@@ -1,0 +1,60 @@
+{
+  "sections": {
+    "atelier": {
+      "type": "cv-atelier",
+      "blocks": {
+        "service_revision": {
+          "type": "service",
+          "settings": {
+            "title": "Révision et réparation",
+            "text": "Entretien courant, crevaison, freins, transmission : toutes marques."
+          }
+        },
+        "service_vae": {
+          "type": "service",
+          "settings": {
+            "title": "Vélos électriques",
+            "text": "Diagnostic et entretien des vélos à assistance électrique."
+          }
+        },
+        "service_posture": {
+          "type": "service",
+          "settings": {
+            "title": "Étude posturale",
+            "text": "Réglage de la position sur le vélo pour plus de confort et d'efficacité."
+          }
+        },
+        "service_montage": {
+          "type": "service",
+          "settings": {
+            "title": "Montage et mise en route",
+            "text": "Chaque vélo vendu est monté et réglé par l'atelier avant la remise."
+          }
+        }
+      },
+      "block_order": [
+        "service_revision",
+        "service_vae",
+        "service_posture",
+        "service_montage"
+      ],
+      "settings": {
+        "eyebrow": "L'atelier",
+        "heading": "Entretien et réparation toutes marques",
+        "text": "Déposez votre vélo, repartez avec un vélo qui roule. Pour un rendez-vous ou un devis, appelez l'atelier.",
+        "button_label": "Appeler l'atelier",
+        "phone": "05 53 48 08 18",
+        "chip": "Toutes marques, VAE compris",
+        "brands_title": ""
+      }
+    },
+    "store": {
+      "type": "cv-store",
+      "settings": {}
+    }
+  },
+  "order": [
+    "atelier",
+    "store"
+  ]
+}

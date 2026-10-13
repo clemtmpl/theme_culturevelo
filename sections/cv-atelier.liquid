@@ -61,8 +61,15 @@
         {%- endfor -%}
       </ul>
 
+      {%- liquid
+        assign btn_href = section.settings.button_link | default: '/pages/contact'
+        if section.settings.phone != blank
+          assign phone_clean = section.settings.phone | replace: ' ', '' | replace: '.', ''
+          assign btn_href = 'tel:' | append: phone_clean
+        endif
+      -%}
       {%- if section.settings.button_label != blank -%}
-        <a class="cv-atelier__btn" href="{{ section.settings.button_link | default: '/pages/contact' }}">
+        <a class="cv-atelier__btn" href="{{ btn_href }}">
           {{- section.settings.button_label | escape -}}
         </a>
       {%- endif -%}
@@ -263,6 +270,12 @@
       "default": "Notre équipe vous conseille, assemble et entretient votre vélo, vélos électriques compris."
     },
     { "type": "text", "id": "button_label", "label": "Bouton", "default": "Prendre rendez-vous" },
+    {
+      "type": "text",
+      "id": "phone",
+      "label": "Téléphone du bouton",
+      "info": "Si rempli, le bouton appelle ce numéro. Vide : il utilise le lien ci-dessous."
+    },
     { "type": "url", "id": "button_link", "label": "Lien du bouton" },
     { "type": "header", "content": "Visuel" },
     { "type": "image_picker", "id": "image", "label": "Photo de l'atelier" },
