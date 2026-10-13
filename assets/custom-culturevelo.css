@@ -179,11 +179,14 @@ body:has(#MainContent > .shopify-section:first-child .cv-hero) .cv-hero__inner {
   box-shadow: 0 24px 40px -26px rgb(3 41 66 / 45%);
 }
 
-.product-card__content.product-grid__card > :not(.card-gallery) {
+/* Le titre est dans un lien « display: contents » : on cible donc aussi ses enfants. */
+.product-card__content.product-grid__card > :not(.card-gallery, .contents),
+.product-card__content.product-grid__card > .contents > * {
   padding-inline: 16px;
 }
 
-.product-card__content.product-grid__card > :last-child {
+.product-card__content.product-grid__card > :last-child:not(.contents),
+.product-card__content.product-grid__card > .contents:last-child > * {
   padding-block-end: 16px;
 }
 
