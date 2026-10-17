@@ -104,7 +104,14 @@
    avec la couleur « submenu ». On le passe en bleu marine pour rester lisible avec le
    texte blanc de la pastille, et on décale le contenu pour qu'il passe sous la pastille. */
 #header-component:not([transparent]) .header__underlay {
-  --color-submenu: rgb(2 29 48 / 97%);
+  --color-submenu: rgb(3 41 66 / 62%);
+}
+
+/* Effet verre : le contenu de la page (le hero, par exemple) est fortement flouté
+   derrière le panneau, donc on ne lit plus son texte à travers. */
+#header-component:not([transparent]) .header__underlay-open {
+  -webkit-backdrop-filter: blur(36px) saturate(160%);
+  backdrop-filter: blur(36px) saturate(160%);
 }
 
 #header-component:not([transparent]) .menu-list__submenu-inner {
