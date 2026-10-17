@@ -100,6 +100,27 @@
   backdrop-filter: blur(24px) saturate(170%);
 }
 
+/* Sous-menus (Vélos → Électriques, VTT…) : le thème peint un panneau sous l'en-tête
+   avec la couleur « submenu ». On le passe en bleu marine pour rester lisible avec le
+   texte blanc de la pastille, et on décale le contenu pour qu'il passe sous la pastille. */
+#header-component:not([transparent]) .header__underlay {
+  --color-submenu: rgb(2 29 48 / 97%);
+}
+
+#header-component:not([transparent]) .menu-list__submenu-inner {
+  padding-block-start: calc(var(--submenu-padding-block-start, 0px) + 20px);
+}
+
+#header-component:not([transparent]) .mega-menu__link,
+#header-component:not([transparent]) .menu-list__submenu a {
+  color: #fff;
+}
+
+#header-component:not([transparent]) .mega-menu__link:hover,
+#header-component:not([transparent]) .menu-list__submenu a:hover {
+  color: var(--cv-sky);
+}
+
 /* Logo texte : capitales épaisses. */
 #header-component .header-logo,
 #header-component .header-logo span {
