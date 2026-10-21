@@ -96,8 +96,11 @@
   background-image: linear-gradient(rgb(3 41 66 / 95%), rgb(3 41 66 / 95%));
   border: 1px solid rgb(255 255 255 / 14%);
   box-shadow: 0 18px 40px -22px rgb(2 29 48 / 60%);
-  -webkit-backdrop-filter: blur(24px) saturate(170%);
-  backdrop-filter: blur(24px) saturate(170%);
+
+  /* Pas de backdrop-filter ici : le tiroir du menu mobile (position: fixed) est rangé dans
+     cette ligne d'en-tête, et un filtre en ferait son repère de position au lieu de l'écran,
+     ce qui bloque le défilement et décale la page. La pastille est opaque à 95 %, le flou
+     ne se voyait pas de toute façon. */
 }
 
 /* Sous-menus (Vélos → Électriques, VTT…) : le thème peint un panneau sous l'en-tête
