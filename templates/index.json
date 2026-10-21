@@ -223,6 +223,7 @@
         "heading": "Entretien & réparation toutes marques",
         "text": "Notre équipe vous conseille, assemble et entretient votre vélo, vélos électriques compris.",
         "button_label": "Prendre rendez-vous",
+        "phone": "",
         "button_link": "",
         "chip": "Toutes marques, VAE compris",
         "brands_title": "Les marques du magasin"
@@ -238,7 +239,7 @@
         "address": "Zac Agen Sud, Av. de l'Atlantique, 47000 Agen",
         "phone": "05 53 48 08 18",
         "hours": "Mardi - Vendredi | 9h30-12h / 14h-18h30\nSamedi | 9h30-12h / 14h-18h\nLundi | Fermé\nDimanche | Fermé",
-        "contact_label": "Nous contacter",
+        "contact_label": "Nous appeler",
         "contact_link": ""
       }
     }
