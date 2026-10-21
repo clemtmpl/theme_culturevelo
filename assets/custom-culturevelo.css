@@ -114,6 +114,35 @@
   backdrop-filter: blur(36px) saturate(160%);
 }
 
+/* Voile flouté sur toute la page quand un sous-menu est ouvert.
+   Le voile est accroché à l'en-tête (qui est le plus haut dans la page) et passe
+   sous la pastille et sous le panneau. Le thème pose « data-active » sur le sous-menu
+   ouvert, et seulement sur lui : un lien sans sous-menu (Accueil, Atelier) ne déclenche rien. */
+#header-component::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: 100vh;
+  block-size: 100dvh;
+  z-index: -1;
+  background: rgb(2 29 48 / 28%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  backdrop-filter: blur(14px) saturate(140%);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.25s var(--cv-ease),
+    visibility 0s linear 0.25s;
+}
+
+#header-component:has(.menu-list__submenu[data-active])::before {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
+}
+
 #header-component:not([transparent]) .menu-list__submenu-inner {
   padding-block-start: calc(var(--submenu-padding-block-start, 0px) + 20px);
 }
