@@ -134,6 +134,11 @@
     box-shadow: 0 30px 80px rgb(0 0 0 / 35%);
   }
 
+  /* Mobile : un bloc plus bas, sinon il pousse le texte à plus d'un écran sous le titre. */
+  @media (max-width: 989px) {
+    .cv-atelier__visual { aspect-ratio: 16 / 10; border-radius: 24px; }
+  }
+
   .cv-atelier__img { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; }
 
   .cv-atelier__placeholder {

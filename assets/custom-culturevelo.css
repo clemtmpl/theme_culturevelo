@@ -93,7 +93,7 @@
   border-radius: 20px;
   color: #fff;
   /* background-color est verrouillé par le thème (!important) : on passe par une image. */
-  background-image: linear-gradient(rgb(3 41 66 / 95%), rgb(3 41 66 / 95%));
+  background-image: linear-gradient(rgb(3 41 66 / 98%), rgb(3 41 66 / 98%));
   border: 1px solid rgb(255 255 255 / 14%);
   box-shadow: 0 18px 40px -22px rgb(2 29 48 / 60%);
 
@@ -213,8 +213,12 @@ body:has(#MainContent > .shopify-section:first-child .cv-hero) .cv-hero__inner {
   transition: transform 0.35s var(--cv-ease);
 }
 
-.product-grid__card:hover {
-  transform: translateY(-4px);
+/* Les effets de survol sont réservés aux appareils avec une souris : sur téléphone,
+   le dernier élément touché resterait « survolé » (carte décalée, ombre qui reste). */
+@media (hover: hover) {
+  .product-grid__card:hover {
+    transform: translateY(-4px);
+  }
 }
 
 .product-badges__badge {
@@ -235,8 +239,17 @@ body:has(#MainContent > .shopify-section:first-child .cv-hero) .cv-hero__inner {
     box-shadow 0.35s var(--cv-ease);
 }
 
-.product-card__content.product-grid__card:hover {
-  box-shadow: 0 24px 40px -26px rgb(3 41 66 / 45%);
+@media (hover: hover) {
+  .product-card__content.product-grid__card:hover {
+    box-shadow: 0 24px 40px -26px rgb(3 41 66 / 45%);
+  }
+}
+
+/* Mobile : la grille de la collection était collée aux bords de l'écran. */
+@media (max-width: 749px) {
+  .product-grid-container {
+    padding-inline: 16px;
+  }
 }
 
 /* Le titre est dans un lien « display: contents » : on cible donc aussi ses enfants. */
@@ -327,8 +340,10 @@ add-to-cart-component .button {
     background-color 0.2s var(--cv-ease);
 }
 
-.button:hover {
-  transform: translateY(-1px);
+@media (hover: hover) {
+  .button:hover {
+    transform: translateY(-1px);
+  }
 }
 
 .button:active {
