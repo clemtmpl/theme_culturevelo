@@ -104,7 +104,7 @@
               "type": "contact-form-submit-button",
               "static": true,
               "settings": {
-                "label": "Submit",
+                "label": "Envoyer",
                 "style_class": "button",
                 "custom_button_background": "{{ settings.color_palette.foreground }}",
                 "custom_button_text": "{{ settings.color_palette.background }}",
@@ -163,7 +163,7 @@
         "address": "Zac Agen Sud, Av. de l'Atlantique, 47000 Agen",
         "phone": "05 53 48 08 18",
         "hours": "Lundi - Samedi | À compléter\nDimanche | À compléter",
-        "contact_label": "Nous contacter",
+        "contact_label": "Nous appeler",
         "contact_link": ""
       }
     }
