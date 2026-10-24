@@ -1,0 +1,52 @@
+{
+  "sections": {
+    "info": {
+      "type": "cv-info",
+      "blocks": {
+        "topic_01": {
+          "type": "topic",
+          "settings": {
+            "icon": "store",
+            "title": "Retrait au magasin d'Agen",
+            "text": "<p><strong>Gratuit.</strong> Votre commande est préparée en 3 jours au maximum. Vous recevez un e-mail dès qu'elle est prête, et elle vous attend ensuite 30 jours.</p><p>Culture Vélo Agen, ZAC Agen Sud, Avenue de l'Atlantique, 47000 Agen. Téléphone : 05 53 48 08 18.</p><p>Mardi à vendredi : 9h30–12h et 14h–18h30. Samedi : 9h30–12h et 14h–18h. Fermé le lundi et le dimanche.</p><p>Pour un vélo retiré en magasin, l'atelier le monte et le règle avant la remise. Présentez l'e-mail de confirmation à la caisse.</p>",
+            "wide": true
+          }
+        },
+        "topic_02": {
+          "type": "topic",
+          "settings": {
+            "icon": "truck",
+            "title": "Envoi à domicile",
+            "text": "<p>Nous pouvons expédier votre commande. Les frais d'envoi dépendent de votre adresse et du produit ; ils sont affichés au moment du paiement, avant que vous ne validiez. L'envoi n'est préparé qu'une fois le règlement reçu en totalité.</p><p>Un vélo expédié arrive monté, à deux exceptions près : le cintre et le réglage de la hauteur de selle, à faire chez vous. En cas de doute, l'atelier vous conseille par téléphone.</p><p>À la réception, vérifiez le colis devant le livreur. En cas de dommage, indiquez-le sur le bon de livraison et prévenez-nous dans les 48 heures.</p>",
+            "wide": false
+          }
+        },
+        "topic_03": {
+          "type": "topic",
+          "settings": {
+            "icon": "card",
+            "title": "Moyens de paiement",
+            "text": "<p>Carte bancaire, virement et paiement en 4 fois (sous réserve d'acceptation de l'organisme de financement).</p><p>La commande est réglée en totalité en ligne. Pour un virement, elle est préparée à réception des fonds.</p>",
+            "wide": false
+          }
+        }
+      },
+      "block_order": [
+        "topic_01",
+        "topic_02",
+        "topic_03"
+      ],
+      "settings": {
+        "eyebrow": "Infos pratiques",
+        "heading": "Livraison et retrait",
+        "intro": "Retirez votre commande gratuitement à Agen, ou demandez un envoi à domicile.",
+        "help_title": "Une question ?",
+        "help_text": "L'équipe du magasin vous répond par téléphone.",
+        "phone": "05 53 48 08 18"
+      }
+    }
+  },
+  "order": [
+    "info"
+  ]
+}

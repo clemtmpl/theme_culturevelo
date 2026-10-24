@@ -1,0 +1,244 @@
+{%- comment -%}
+  Culture Vélo — FAQ : questions qui se déplient, regroupées par thème.
+  Blocs : « Thème » (titre de groupe) et « Question » (question + réponse).
+  Sans JavaScript : balise <details> native, accessible au clavier.
+{%- endcomment -%}
+
+<section class="cv-faq cv-wrap" id="cv-faq-{{ section.id }}">
+  <header class="cv-faq__head">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="cv-faq__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+    <h1 class="cv-faq__title">{{ section.settings.heading | default: page.title | escape }}</h1>
+    {%- if section.settings.intro != blank -%}
+      <p class="cv-faq__intro">{{ section.settings.intro | escape }}</p>
+    {%- endif -%}
+  </header>
+
+  <div class="cv-faq__list">
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'group' -%}
+          <h2 class="cv-faq__group" {{ block.shopify_attributes }}>{{ block.settings.title | escape }}</h2>
+        {%- when 'question' -%}
+          <details class="cv-faq__item" {{ block.shopify_attributes }}>
+            <summary class="cv-faq__q">
+              <span>{{ block.settings.question | escape }}</span>
+              <span class="cv-faq__icon" aria-hidden="true"></span>
+            </summary>
+            <div class="cv-faq__a rte">{{ block.settings.answer }}</div>
+          </details>
+      {%- endcase -%}
+    {%- endfor -%}
+  </div>
+
+  {%- if section.settings.help_title != blank -%}
+    <aside class="cv-faq__help">
+      <div>
+        <h2 class="cv-faq__help-title">{{ section.settings.help_title | escape }}</h2>
+        {%- if section.settings.help_text != blank -%}
+          <p class="cv-faq__help-text">{{ section.settings.help_text | escape }}</p>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.phone != blank -%}
+        <a class="cv-faq__help-btn" href="tel:{{ section.settings.phone | replace: ' ', '' }}">{{ section.settings.phone | escape }}</a>
+      {%- endif -%}
+    </aside>
+  {%- endif -%}
+</section>
+
+{% stylesheet %}
+  .cv-faq {
+    max-inline-size: 860px;
+    padding-block: 7rem 4rem;
+  }
+
+  .cv-faq__eyebrow {
+    margin: 0 0 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cv-blue, #0969a8);
+  }
+
+  .cv-faq__title {
+    margin: 0;
+    color: var(--cv-navy, #032942);
+  }
+
+  .cv-faq__intro {
+    margin: 1rem 0 0;
+    max-inline-size: 56ch;
+    font-size: 1.0625rem;
+    color: rgb(3 41 66 / 72%);
+  }
+
+  .cv-faq__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-block-start: 2rem;
+  }
+
+  .cv-faq__group {
+    margin: 1.75rem 0 0.25rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--cv-blue, #0969a8);
+  }
+
+  .cv-faq__group:first-child { margin-block-start: 0; }
+
+  .cv-faq__item {
+    background: #fff;
+    border: 1px solid var(--cv-line, #d5dee6);
+    border-radius: var(--cv-radius, 18px);
+    transition: box-shadow 0.3s var(--cv-ease, ease), border-color 0.3s var(--cv-ease, ease);
+  }
+
+  .cv-faq__item[open] {
+    border-color: var(--cv-sky, #90c4e6);
+    box-shadow: 0 18px 36px -28px rgb(3 41 66 / 45%);
+  }
+
+  .cv-faq__q {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.125rem 1.25rem;
+    font-weight: 700;
+    color: var(--cv-navy, #032942);
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .cv-faq__q::-webkit-details-marker { display: none; }
+
+  .cv-faq__q:focus-visible {
+    outline: 2px solid var(--cv-blue-hover, #00a5e2);
+    outline-offset: 2px;
+    border-radius: var(--cv-radius, 18px);
+  }
+
+  .cv-faq__icon {
+    position: relative;
+    flex: none;
+    inline-size: 28px;
+    block-size: 28px;
+    border-radius: 50%;
+    background: var(--cv-mist, #ebf0f5);
+    transition: background-color 0.3s var(--cv-ease, ease), transform 0.3s var(--cv-ease, ease);
+  }
+
+  .cv-faq__icon::before,
+  .cv-faq__icon::after {
+    content: '';
+    position: absolute;
+    inset-block-start: 50%;
+    inset-inline-start: 50%;
+    inline-size: 12px;
+    block-size: 2px;
+    margin: -1px 0 0 -6px;
+    border-radius: 1px;
+    background: var(--cv-navy, #032942);
+  }
+
+  .cv-faq__icon::after { transform: rotate(90deg); transition: transform 0.3s var(--cv-ease, ease); }
+
+  .cv-faq__item[open] .cv-faq__icon { background: var(--cv-sky, #90c4e6); }
+  .cv-faq__item[open] .cv-faq__icon::after { transform: rotate(0deg); }
+
+  .cv-faq__a {
+    padding: 0 1.25rem 1.25rem;
+    color: rgb(3 41 66 / 82%);
+  }
+
+  .cv-faq__a p { margin: 0; }
+  .cv-faq__a p + p { margin-block-start: 0.75rem; }
+
+  .cv-faq__help {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    margin-block-start: 3rem;
+    padding: 1.5rem 1.75rem;
+    border-radius: var(--cv-radius, 18px);
+    color: #f2f7fb;
+    background: linear-gradient(160deg, var(--cv-navy, #032942), var(--cv-navy-deep, #021d30));
+  }
+
+  .cv-faq__help-title { margin: 0; font-size: 1.25rem; color: #fff; }
+  .cv-faq__help-text { margin: 0.25rem 0 0; color: rgb(242 247 251 / 78%); }
+
+  .cv-faq__help-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.875rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 700;
+    color: var(--cv-navy-deep, #021d30);
+    background: var(--cv-blue-hover, #00a5e2);
+    text-decoration: none;
+  }
+
+  @media (hover: hover) {
+    .cv-faq__help-btn:hover { background: var(--cv-sky, #90c4e6); }
+  }
+
+  @media (max-width: 749px) {
+    .cv-faq { padding-block: 6rem 3rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cv-faq__item, .cv-faq__icon, .cv-faq__icon::after { transition: none; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "CV · FAQ",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Aide" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Questions fréquentes" },
+    { "type": "textarea", "id": "intro", "label": "Introduction", "default": "Retrait, livraison, retours, atelier : les réponses aux questions les plus courantes." },
+    { "type": "header", "content": "Encadré « Une autre question ? »" },
+    { "type": "text", "id": "help_title", "label": "Titre de l'encadré", "default": "Une autre question ?" },
+    { "type": "text", "id": "help_text", "label": "Texte de l'encadré", "default": "L'équipe du magasin vous répond par téléphone." },
+    { "type": "text", "id": "phone", "label": "Téléphone", "default": "05 53 48 08 18" }
+  ],
+  "blocks": [
+    {
+      "type": "group",
+      "name": "Thème",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre du thème", "default": "Commander et retirer" }
+      ]
+    },
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Comment retirer ma commande ?" },
+        { "type": "richtext", "id": "answer", "label": "Réponse", "default": "<p>Présentez-vous au magasin avec l'e-mail de confirmation.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CV · FAQ",
+      "blocks": [
+        { "type": "group" },
+        { "type": "question" },
+        { "type": "question" }
+      ]
+    }
+  ]
+}
+{% endschema %}

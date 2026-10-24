@@ -1,0 +1,138 @@
+{
+  "sections": {
+    "faq": {
+      "type": "cv-faq",
+      "blocks": {
+        "group_01": {
+          "type": "group",
+          "settings": {
+            "title": "Commander et retirer"
+          }
+        },
+        "question_02": {
+          "type": "question",
+          "settings": {
+            "question": "Comment retirer ma commande ?",
+            "answer": "<p>Présentez-vous au magasin d'Agen avec l'e-mail de confirmation, pendant nos horaires d'ouverture. Le retrait est gratuit.</p>"
+          }
+        },
+        "question_03": {
+          "type": "question",
+          "settings": {
+            "question": "Sous quel délai ma commande est-elle prête ?",
+            "answer": "<p>Comptez 3 jours au maximum. Vous recevez un e-mail dès qu'elle est prête, et elle vous attend 30 jours.</p>"
+          }
+        },
+        "question_04": {
+          "type": "question",
+          "settings": {
+            "question": "Puis-je essayer un vélo avant de l'acheter ?",
+            "answer": "<p>Oui, venez l'essayer au magasin ; l'équipe vous conseille sur la taille et les réglages.</p>"
+          }
+        },
+        "question_05": {
+          "type": "question",
+          "settings": {
+            "question": "Mon vélo est-il monté ?",
+            "answer": "<p>Oui. Retiré en magasin, il est réglé par l'atelier avant la remise. Expédié, il arrive monté, sauf le cintre et la hauteur de selle à régler chez vous.</p>"
+          }
+        },
+        "group_06": {
+          "type": "group",
+          "settings": {
+            "title": "Livraison et paiement"
+          }
+        },
+        "question_07": {
+          "type": "question",
+          "settings": {
+            "question": "Livrez-vous à domicile ?",
+            "answer": "<p>Oui, avec des frais qui dépendent de votre adresse. Ils s'affichent avant que vous ne validiez le paiement.</p>"
+          }
+        },
+        "question_08": {
+          "type": "question",
+          "settings": {
+            "question": "Quels moyens de paiement acceptez-vous ?",
+            "answer": "<p>Carte bancaire, virement et paiement en 4 fois, sous réserve d'acceptation de l'organisme de financement. La commande est réglée en totalité avant l'envoi.</p>"
+          }
+        },
+        "group_09": {
+          "type": "group",
+          "settings": {
+            "title": "Retours et garantie"
+          }
+        },
+        "question_10": {
+          "type": "question",
+          "settings": {
+            "question": "Puis-je retourner un article ?",
+            "answer": "<p>Oui, dans les 14 jours suivant la réception ou le retrait. Le produit doit être complet, dans son emballage et en état d'être revendu. Contactez-nous avant de le renvoyer.</p>"
+          }
+        },
+        "question_11": {
+          "type": "question",
+          "settings": {
+            "question": "Quelle garantie ?",
+            "answer": "<p>Tous les produits ont la garantie légale de 2 ans. Les produits neufs de marque peuvent avoir en plus une garantie constructeur de 24 mois, pour le premier acheteur et non cessible.</p>"
+          }
+        },
+        "group_12": {
+          "type": "group",
+          "settings": {
+            "title": "Atelier"
+          }
+        },
+        "question_13": {
+          "type": "question",
+          "settings": {
+            "question": "Faut-il prendre rendez-vous pour l'atelier ?",
+            "answer": "<p>Oui, par téléphone au 05 53 48 08 18.</p>"
+          }
+        },
+        "question_14": {
+          "type": "question",
+          "settings": {
+            "question": "Réparez-vous toutes les marques, y compris les vélos électriques ?",
+            "answer": "<p>Oui, toutes marques, vélos électriques compris : révision, réparation, étude posturale et montage.</p>"
+          }
+        },
+        "question_15": {
+          "type": "question",
+          "settings": {
+            "question": "Quels sont vos horaires ?",
+            "answer": "<p>Du mardi au vendredi, 9h30–12h et 14h–18h30 ; le samedi, 9h30–12h et 14h–18h. Fermé le lundi et le dimanche.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "group_01",
+        "question_02",
+        "question_03",
+        "question_04",
+        "question_05",
+        "group_06",
+        "question_07",
+        "question_08",
+        "group_09",
+        "question_10",
+        "question_11",
+        "group_12",
+        "question_13",
+        "question_14",
+        "question_15"
+      ],
+      "settings": {
+        "eyebrow": "Aide",
+        "heading": "Questions fréquentes",
+        "intro": "Retrait, livraison, retours, atelier : les réponses aux questions les plus courantes.",
+        "help_title": "Une autre question ?",
+        "help_text": "L'équipe du magasin vous répond par téléphone.",
+        "phone": "05 53 48 08 18"
+      }
+    }
+  },
+  "order": [
+    "faq"
+  ]
+}

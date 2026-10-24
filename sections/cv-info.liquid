@@ -1,0 +1,204 @@
+{%- comment -%}
+  Culture Vélo — page d'information en cartes (Livraison et retrait, etc.).
+  Chaque bloc « Rubrique » est une carte : icône, titre, texte riche.
+  Un encadré d'aide avec le téléphone clôt la page.
+{%- endcomment -%}
+
+<section class="cv-info cv-wrap" id="cv-info-{{ section.id }}">
+  <header class="cv-info__head">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="cv-info__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+    <h1 class="cv-info__title">{{ section.settings.heading | default: page.title | escape }}</h1>
+    {%- if section.settings.intro != blank -%}
+      <p class="cv-info__intro">{{ section.settings.intro | escape }}</p>
+    {%- endif -%}
+  </header>
+
+  <div class="cv-info__grid">
+    {%- for block in section.blocks -%}
+      <article class="cv-info__card{% if block.settings.wide %} cv-info__card--wide{% endif %}" {{ block.shopify_attributes }}>
+        <span class="cv-info__icon" aria-hidden="true">
+          {%- case block.settings.icon -%}
+            {%- when 'store' -%}
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l1.5-5h15L21 9"/><path d="M4 9v11h16V9"/><path d="M3 9a3 3 0 006 0 3 3 0 006 0 3 3 0 006 0"/><path d="M10 20v-6h4v6"/></svg>
+            {%- when 'truck' -%}
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h11v9H3z"/><path d="M14 10h4l3 3v3h-7z"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/></svg>
+            {%- when 'card' -%}
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3 10h18"/><path d="M7 15h4"/></svg>
+            {%- when 'phone' -%}
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>
+            {%- else -%}
+              <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.2 8-8 9-4.8-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg>
+          {%- endcase -%}
+        </span>
+        <h2 class="cv-info__card-title">{{ block.settings.title | escape }}</h2>
+        <div class="cv-info__card-text rte">{{ block.settings.text }}</div>
+      </article>
+    {%- endfor -%}
+  </div>
+
+  {%- if section.settings.help_title != blank -%}
+    <aside class="cv-info__help">
+      <div>
+        <h2 class="cv-info__help-title">{{ section.settings.help_title | escape }}</h2>
+        {%- if section.settings.help_text != blank -%}
+          <p class="cv-info__help-text">{{ section.settings.help_text | escape }}</p>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.phone != blank -%}
+        <a class="cv-info__help-btn" href="tel:{{ section.settings.phone | replace: ' ', '' }}">{{ section.settings.phone | escape }}</a>
+      {%- endif -%}
+    </aside>
+  {%- endif -%}
+</section>
+
+{% stylesheet %}
+  .cv-info {
+    max-inline-size: 1040px;
+    padding-block: 7rem 4rem;
+  }
+
+  .cv-info__eyebrow {
+    margin: 0 0 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cv-blue, #0969a8);
+  }
+
+  .cv-info__title { margin: 0; color: var(--cv-navy, #032942); }
+
+  .cv-info__intro {
+    margin: 1rem 0 0;
+    max-inline-size: 60ch;
+    font-size: 1.0625rem;
+    color: rgb(3 41 66 / 72%);
+  }
+
+  .cv-info__grid {
+    display: grid;
+    gap: 1rem;
+    margin-block-start: 2.25rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 750px) {
+    .cv-info__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; }
+    .cv-info__card--wide { grid-column: 1 / -1; }
+  }
+
+  .cv-info__card {
+    padding: 1.5rem;
+    background: #fff;
+    border: 1px solid var(--cv-line, #d5dee6);
+    border-radius: var(--cv-radius, 18px);
+  }
+
+  .cv-info__icon {
+    display: grid;
+    place-items: center;
+    inline-size: 46px;
+    block-size: 46px;
+    margin-block-end: 1rem;
+    border-radius: 50%;
+    color: var(--cv-blue, #0969a8);
+    background: var(--cv-mist, #ebf0f5);
+  }
+
+  .cv-info__card-title {
+    margin: 0 0 0.625rem;
+    font-size: 1.25rem;
+    color: var(--cv-navy, #032942);
+  }
+
+  .cv-info__card-text { color: rgb(3 41 66 / 82%); }
+  .cv-info__card-text p { margin: 0; }
+  .cv-info__card-text p + p { margin-block-start: 0.75rem; }
+  .cv-info__card-text strong { color: var(--cv-navy, #032942); }
+
+  .cv-info__help {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem 2rem;
+    margin-block-start: 2rem;
+    padding: 1.5rem 1.75rem;
+    border-radius: var(--cv-radius, 18px);
+    color: #f2f7fb;
+    background: linear-gradient(160deg, var(--cv-navy, #032942), var(--cv-navy-deep, #021d30));
+  }
+
+  .cv-info__help-title { margin: 0; font-size: 1.25rem; color: #fff; }
+  .cv-info__help-text { margin: 0.25rem 0 0; color: rgb(242 247 251 / 78%); }
+
+  .cv-info__help-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.875rem 1.5rem;
+    border-radius: 999px;
+    font-weight: 700;
+    color: var(--cv-navy-deep, #021d30);
+    background: var(--cv-blue-hover, #00a5e2);
+    text-decoration: none;
+  }
+
+  @media (hover: hover) {
+    .cv-info__help-btn:hover { background: var(--cv-sky, #90c4e6); }
+  }
+
+  @media (max-width: 749px) {
+    .cv-info { padding-block: 6rem 3rem; }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "CV · Page d'information",
+  "tag": null,
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Infos pratiques" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Livraison et retrait" },
+    { "type": "textarea", "id": "intro", "label": "Introduction" },
+    { "type": "header", "content": "Encadré d'aide" },
+    { "type": "text", "id": "help_title", "label": "Titre de l'encadré", "default": "Une question ?" },
+    { "type": "text", "id": "help_text", "label": "Texte de l'encadré", "default": "L'équipe du magasin vous répond par téléphone." },
+    { "type": "text", "id": "phone", "label": "Téléphone", "default": "05 53 48 08 18" }
+  ],
+  "blocks": [
+    {
+      "type": "topic",
+      "name": "Rubrique",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icône",
+          "options": [
+            { "value": "store", "label": "Magasin" },
+            { "value": "truck", "label": "Camion" },
+            { "value": "card", "label": "Carte bancaire" },
+            { "value": "phone", "label": "Téléphone" },
+            { "value": "shield", "label": "Bouclier" }
+          ],
+          "default": "store"
+        },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Retrait au magasin" },
+        { "type": "richtext", "id": "text", "label": "Texte", "default": "<p>Décrivez cette rubrique.</p>" },
+        { "type": "checkbox", "id": "wide", "label": "Carte sur toute la largeur", "default": false }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "CV · Page d'information",
+      "blocks": [
+        { "type": "topic" },
+        { "type": "topic", "settings": { "icon": "truck", "title": "Envoi à domicile" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
