@@ -23,11 +23,11 @@
         "logo_sub": "Vélo · Agen",
         "about": "Vente, atelier et conseil vélo à Agen.",
         "col1_heading": "Boutique",
-        "col1_menu": "main-menu",
+        "col1_menu": "boutique",
         "col2_heading": "Services",
-        "col2_menu": "",
+        "col2_menu": "services",
         "col3_heading": "Aide",
-        "col3_menu": "",
+        "col3_menu": "aide",
         "bottom_left": "",
         "bottom_right": "CB · Visa · Mastercard · PayPal"
       }
