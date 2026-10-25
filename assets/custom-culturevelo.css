@@ -420,6 +420,48 @@ add-to-cart-component .button {
   font-variant-numeric: tabular-nums;
 }
 
+/* --- Pages de politiques (mentions légales, CGV, expédition…) -----------------
+   Titre plus raisonnable, sans coupure au milieu d'un mot, texte plus large et plus
+   lisible, et marge en haut pour passer sous la pastille de l'en-tête. */
+
+.shopify-policy__container {
+  max-inline-size: min(860px, calc(100% - 2rem));
+  margin-inline: auto;
+  padding-block: 8rem 4rem;
+}
+
+.shopify-policy__container .shopify-policy__title {
+  text-align: start;
+}
+
+.shopify-policy__container .shopify-policy__title h1 {
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+  overflow-wrap: normal;
+  word-break: normal;
+  hyphens: manual;
+  text-wrap: balance;
+}
+
+.shopify-policy__body {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: rgb(3 41 66 / 88%);
+}
+
+.shopify-policy__body p {
+  margin-block: 0 1em;
+}
+
+.shopify-policy__body :is(h2, h3, h4) {
+  margin-block: 2rem 0.75rem;
+  font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+}
+
+@media (max-width: 749px) {
+  .shopify-policy__container { padding-block: 6.5rem 3rem; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .product-grid__card,
   .button,
