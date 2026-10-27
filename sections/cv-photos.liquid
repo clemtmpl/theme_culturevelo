@@ -1,0 +1,167 @@
+{%- comment -%}
+  Culture Vélo — galerie de photos du magasin.
+  La première photo occupe toute la largeur sur ordinateur ; les suivantes se placent par deux.
+  Chaque bloc « Photo » : image + légende facultative.
+{%- endcomment -%}
+
+<section class="cv-photos cv-wrap" id="cv-photos-{{ section.id }}">
+  {%- if section.settings.heading != blank -%}
+    <header class="cv-photos__head">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="cv-photos__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h2 class="cv-photos__title">{{ section.settings.heading | escape }}</h2>
+      {%- if section.settings.subheading != blank -%}
+        <p class="cv-photos__sub">{{ section.settings.subheading | escape }}</p>
+      {%- endif -%}
+    </header>
+  {%- endif -%}
+
+  <div class="cv-photos__grid">
+    {%- for block in section.blocks -%}
+      <figure class="cv-photos__item{% if forloop.first %} cv-photos__item--lead{% endif %}" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          {{
+            block.settings.image
+            | image_url: width: 1800
+            | image_tag:
+              loading: 'lazy',
+              widths: '600, 900, 1200, 1800',
+              sizes: '(min-width: 750px) 50vw, 100vw',
+              class: 'cv-photos__img',
+              alt: block.settings.alt | default: block.settings.caption | default: 'Le magasin Culture Vélo Agen'
+          }}
+        {%- else -%}
+          <span class="cv-photos__fallback" aria-hidden="true"></span>
+        {%- endif -%}
+        {%- if block.settings.caption != blank -%}
+          <figcaption class="cv-photos__caption cv-glass cv-glass--dark">{{ block.settings.caption | escape }}</figcaption>
+        {%- endif -%}
+      </figure>
+    {%- else -%}
+      <p class="cv-photos__empty">Ajoutez des blocs « Photo » et choisissez une image pour chacun.</p>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .cv-photos { padding-block: clamp(2.5rem, 6vw, 5rem); }
+
+  .cv-photos__head { margin-block-end: 2rem; }
+
+  .cv-photos__eyebrow {
+    margin: 0 0 0.5rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cv-blue, #0969a8);
+  }
+
+  .cv-photos__title {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-heading--family);
+    font-size: clamp(1.75rem, 3.6vw, 2.5rem);
+    line-height: 1;
+    font-weight: 800;
+    font-stretch: 115%;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    color: var(--cv-navy, #032942);
+  }
+
+  .cv-photos__sub { margin: 0; max-inline-size: 60ch; color: rgb(3 41 66 / 70%); }
+
+  .cv-photos__grid {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 750px) {
+    .cv-photos__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+    .cv-photos__item--lead { grid-column: 1 / -1; }
+  }
+
+  .cv-photos__item {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--cv-radius, 18px);
+    background: var(--cv-mist, #ebf0f5);
+    isolation: isolate;
+  }
+
+  @media (min-width: 750px) {
+    .cv-photos__item--lead { aspect-ratio: 21 / 9; }
+  }
+
+  .cv-photos__img,
+  .cv-photos__fallback {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  .cv-photos__fallback {
+    background: linear-gradient(150deg, var(--cv-navy-700, #05426b), var(--cv-navy, #032942));
+  }
+
+  .cv-photos__caption {
+    position: absolute;
+    inset-inline-start: 0.75rem;
+    inset-block-end: 0.75rem;
+    max-inline-size: calc(100% - 1.5rem);
+    padding: 0.5rem 0.875rem;
+    border-radius: calc(var(--cv-radius, 18px) - 6px);
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fff;
+    z-index: 1;
+  }
+
+  .cv-photos__empty { grid-column: 1 / -1; padding: 2rem; text-align: center; color: rgb(3 41 66 / 60%); }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "CV · Galerie photos",
+  "tag": "section",
+  "class": "cv-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Le magasin" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Un magasin à parcourir" },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Texte",
+      "default": "Vélos de route, VTT, électriques et équipement : tout se voit et s'essaie à Agen."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "Photo",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "caption", "label": "Légende (facultative)" },
+        { "type": "text", "id": "alt", "label": "Description pour l'accessibilité", "info": "Par défaut : la légende." }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "CV · Galerie photos",
+      "blocks": [
+        { "type": "photo", "settings": { "caption": "Vélos de route, VTT et électriques" } },
+        { "type": "photo", "settings": { "caption": "Accessoires et textile" } },
+        { "type": "photo", "settings": { "caption": "Électriques et route" } }
+      ]
+    }
+  ]
+}
+{% endschema %}
