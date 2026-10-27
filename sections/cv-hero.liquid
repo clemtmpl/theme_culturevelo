@@ -4,14 +4,37 @@
   Tous les textes sont modifiables dans l'éditeur du thème.
 {%- endcomment -%}
 
+{%- liquid
+  assign hero_image = section.settings.image
+  assign bg_mode = false
+  if hero_image != blank and section.settings.image_style == 'background'
+    assign bg_mode = true
+  endif
+-%}
+
 <section
-  class="cv-hero"
+  class="cv-hero{% if bg_mode %} cv-hero--bg{% endif %}"
   id="cv-hero-{{ section.id }}"
   style="--cv-hero-min: {{ section.settings.min_height }}vh;"
 >
   <span class="cv-halo cv-halo--blue cv-hero__halo cv-hero__halo--a" aria-hidden="true"></span>
   <span class="cv-halo cv-halo--bright cv-hero__halo cv-hero__halo--b" aria-hidden="true"></span>
   <span class="cv-halo cv-halo--coral cv-hero__halo cv-hero__halo--c" aria-hidden="true"></span>
+
+  {%- if bg_mode -%}
+    <div class="cv-hero__bg" aria-hidden="true">
+      {{
+        hero_image
+        | image_url: width: 2400
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          widths: '900, 1400, 1800, 2400',
+          sizes: '100vw',
+          alt: ''
+      }}
+    </div>
+  {%- endif -%}
 
   <div class="cv-hero__inner cv-wrap">
     <div class="cv-hero__copy">
@@ -42,7 +65,7 @@
     </div>
 
     <div class="cv-hero__visual">
-      {%- if section.settings.image != blank -%}
+      {%- if hero_image != blank and bg_mode == false -%}
         <div class="cv-hero__image">
           {{
             section.settings.image
@@ -186,7 +209,59 @@
   .cv-hero__card-phone { font-weight: 700; color: var(--cv-sky, #90c4e6); text-decoration: none; }
   .cv-hero__card-phone:hover { text-decoration: underline; }
 
+  /* Mode « photo en fond » : la photo occupe tout le bandeau, un voile bleu marine garde le texte lisible. */
+  .cv-hero__bg {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    overflow: hidden;
+  }
+
+  .cv-hero__bg img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    object-position: 50% 62%;
+    transform-origin: 65% 60%;
+    animation: cv-hero-settle 14s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  @keyframes cv-hero-settle {
+    from { transform: scale(1.12); }
+    to { transform: scale(1); }
+  }
+
+  .cv-hero--bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgb(2 29 48 / 94%) 0%, rgb(3 41 66 / 78%) 38%, rgb(3 41 66 / 22%) 78%, rgb(3 41 66 / 8%) 100%),
+      linear-gradient(0deg, rgb(2 29 48 / 70%) 0%, transparent 38%);
+  }
+
+  .cv-hero--bg .cv-hero__halo { display: none; }
+
+  .cv-hero--bg { min-block-size: max(var(--cv-hero-min, 70vh), 34rem); }
+
+  @media (min-width: 990px) {
+    .cv-hero--bg .cv-hero__inner { grid-template-columns: 1.2fr 0.8fr; align-items: end; padding-block-end: clamp(3rem, 6vw, 5rem); }
+    .cv-hero--bg .cv-hero__visual { display: flex; justify-content: flex-end; }
+  }
+
+  @media (max-width: 989px) {
+    .cv-hero--bg::after {
+      background:
+        linear-gradient(180deg, rgb(2 29 48 / 88%) 0%, rgb(3 41 66 / 74%) 55%, rgb(2 29 48 / 90%) 100%);
+    }
+    .cv-hero--bg .cv-hero__card { max-inline-size: none; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
+    .cv-hero__bg img { animation: none; }
     .cv-hero__btn { transition: none; }
     .cv-hero__btn:hover { transform: none; }
   }
@@ -214,6 +289,16 @@
     { "type": "url", "id": "secondary_link", "label": "Lien du bouton secondaire" },
     { "type": "header", "content": "Image" },
     { "type": "image_picker", "id": "image", "label": "Image (ex. photo du magasin ou d'un vélo)" },
+    {
+      "type": "select",
+      "id": "image_style",
+      "label": "Présentation de l'image",
+      "options": [
+        { "value": "background", "label": "Photo en fond, pleine largeur" },
+        { "value": "card", "label": "Photo en carte, à droite" }
+      ],
+      "default": "background"
+    },
     { "type": "range", "id": "min_height", "label": "Hauteur minimale", "min": 40, "max": 100, "step": 5, "unit": "vh", "default": 70 },
     { "type": "header", "content": "Carte magasin (verre dépoli)" },
     { "type": "checkbox", "id": "show_store_card", "label": "Afficher la carte magasin", "default": true },
