@@ -13,7 +13,7 @@
       "type": "cv-hero",
       "name": "CV · Bandeau d'accueil",
       "settings": {
-        "eyebrow": "Culture Vélo · Agen",
+        "eyebrow": "RC Bike · Agen",
         "heading": "Votre prochain vélo, à Agen.",
         "text": "Route, gravel, VTT, électrique : venez l'essayer en magasin, ou commandez en ligne et retirez-le chez nous.",
         "primary_label": "Voir les vélos",
@@ -24,7 +24,7 @@
         "min_height": 70,
         "show_store_card": true,
         "store_status": "Ouvert en magasin",
-        "store_name": "Culture Vélo Agen",
+        "store_name": "RC Bike · Culture Vélo Agen",
         "store_address": "Zac Agen Sud, Av. de l'Atlantique, 47000 Agen",
         "store_phone": "05 53 48 08 18"
       }
@@ -236,7 +236,7 @@
       "settings": {
         "eyebrow": "Le magasin",
         "heading": "Venez nous voir",
-        "store_name": "Culture Vélo Agen",
+        "store_name": "RC Bike · Culture Vélo Agen",
         "address": "Zac Agen Sud, Av. de l'Atlantique, 47000 Agen",
         "phone": "05 53 48 08 18",
         "hours": "Mardi - Vendredi | 9h30-12h / 14h-18h30\nSamedi | 9h30-12h / 14h-18h\nLundi | Fermé\nDimanche | Fermé",

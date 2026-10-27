@@ -477,3 +477,182 @@ add-to-cart-component .button {
     transform: none;
   }
 }
+
+
+/* ===========================================================================
+   Touches de fantaisie : roue de vélo, boutons, apparition au défilement.
+   Tout ce qui bouge est dans « prefers-reduced-motion: no-preference », et les
+   effets liés au défilement sont ignorés par les navigateurs trop anciens
+   (la page reste alors simplement fixe, sans rien casser).
+   =========================================================================== */
+
+:root {
+  /* Roue de vélo (jante, moyeu, 8 rayons), utilisée comme masque : elle prend la couleur du fond. */
+  --cv-wheel: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Cg fill='none' stroke='black' stroke-width='3' stroke-linecap='round'%3E%3Ccircle cx='24' cy='24' r='20'/%3E%3Ccircle cx='24' cy='24' r='3.5' fill='black'/%3E%3Cpath d='M24 4v13M24 31v13M4 24h13M31 24h13M9.9 9.9l9.2 9.2M28.9 28.9l9.2 9.2M38.1 9.9l-9.2 9.2M19.1 28.9l-9.2 9.2'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* 1. Une roue devant le nom du site (masquée si un vrai logo image est ajouté). */
+#header-component .header-logo::before {
+  content: "";
+  flex: none;
+  inline-size: 26px;
+  block-size: 26px;
+  margin-inline-end: 8px;
+  background: var(--cv-blue-hover);
+  -webkit-mask: var(--cv-wheel) center / contain no-repeat;
+  mask: var(--cv-wheel) center / contain no-repeat;
+}
+
+#header-component .header-logo:has(img)::before { display: none; }
+
+@media (min-width: 750px) {
+  #header-component .header-logo::before { inline-size: 30px; block-size: 30px; margin-inline-end: 10px; }
+}
+
+/* 2. Bouton « retour en haut » : une roue qui tourne avec le défilement (ordinateur seulement). */
+.cv-wheel-top {
+  position: fixed;
+  inset-inline-end: 22px;
+  inset-block-end: 22px;
+  z-index: 20;
+  display: none;
+  place-items: center;
+  inline-size: 52px;
+  block-size: 52px;
+  border-radius: 50%;
+  background: var(--cv-glass-bg-dark);
+  border: 1px solid var(--cv-glass-border-dark);
+  -webkit-backdrop-filter: var(--cv-glass-blur);
+  backdrop-filter: var(--cv-glass-blur);
+  box-shadow: 0 14px 34px -12px rgb(3 41 66 / 55%);
+}
+
+.cv-wheel-top::before {
+  content: "";
+  inline-size: 28px;
+  block-size: 28px;
+  background: var(--cv-blue-hover);
+  -webkit-mask: var(--cv-wheel) center / contain no-repeat;
+  mask: var(--cv-wheel) center / contain no-repeat;
+}
+
+@media (min-width: 750px) {
+  .cv-wheel-top { display: grid; }
+}
+
+/* Sans défilement lié à la page, on ne l'affiche pas du tout. */
+@supports not (animation-timeline: scroll()) {
+  .cv-wheel-top { display: none; }
+}
+
+/* 3. Petite roue qui apparaît au survol des boutons principaux. */
+.cv-hero__btn--primary::after,
+.cv-store__btn--primary::after,
+.cv-atelier__btn::after,
+.cv-info__help-btn::after,
+.cv-faq__help-btn::after {
+  content: "";
+  flex: none;
+  inline-size: 0;
+  block-size: 20px;
+  margin-inline-start: 0;
+  opacity: 0;
+  background: currentColor;
+  -webkit-mask: var(--cv-wheel) center / contain no-repeat;
+  mask: var(--cv-wheel) center / contain no-repeat;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  @keyframes cv-wheel-spin { to { rotate: 360deg; } }
+  @keyframes cv-wheel-scroll { to { transform: rotate(1440deg); } }
+  @keyframes cv-pulse {
+    0% { box-shadow: 0 0 0 0 color-mix(in srgb, currentColor 45%, transparent); }
+    100% { box-shadow: 0 0 0 10px color-mix(in srgb, currentColor 0%, transparent); }
+  }
+  @keyframes cv-rise {
+    from { opacity: 0; transform: translateY(28px) scale(0.98); }
+    to { opacity: 1; transform: none; }
+  }
+  @keyframes cv-pop-in {
+    from { opacity: 0; visibility: hidden; transform: scale(0.6); }
+    to { opacity: 1; visibility: visible; transform: none; }
+  }
+
+  html { scroll-behavior: smooth; }
+
+  /* Logo : la roue fait un tour complet au survol. */
+  @media (hover: hover) {
+    #header-component .header-logo:hover::before { animation: cv-wheel-spin 0.9s var(--cv-ease); }
+  }
+
+  /* Boutons : la roue pousse sur le côté et tourne tant que la souris est dessus. */
+  .cv-hero__btn--primary::after,
+  .cv-store__btn--primary::after,
+  .cv-atelier__btn::after,
+  .cv-info__help-btn::after,
+  .cv-faq__help-btn::after {
+    transition: inline-size 0.3s var(--cv-ease), margin-inline-start 0.3s var(--cv-ease), opacity 0.3s var(--cv-ease);
+  }
+
+  @media (hover: hover) {
+    .cv-hero__btn--primary:hover::after,
+    .cv-store__btn--primary:hover::after,
+    .cv-atelier__btn:hover::after,
+    .cv-info__help-btn:hover::after,
+    .cv-faq__help-btn:hover::after {
+      inline-size: 20px;
+      margin-inline-start: 0.5rem;
+      opacity: 1;
+      animation: cv-wheel-spin 0.9s linear infinite;
+    }
+  }
+
+  /* Pastille « En stock » et « Ouvert en magasin » : un léger battement. */
+  .cv-stock:not(.cv-stock--low):not(.cv-stock--order)::before {
+    animation: cv-pulse 2.4s ease-out infinite;
+  }
+
+  /* Effets liés au défilement de la page. */
+  @supports (animation-timeline: scroll()) {
+    #header-component .header-logo::before {
+      animation: cv-wheel-scroll linear both;
+      animation-timeline: scroll(root);
+    }
+
+    @media (hover: hover) {
+      #header-component .header-logo:hover::before {
+        animation: cv-wheel-scroll linear both, cv-wheel-spin 0.9s var(--cv-ease);
+        animation-timeline: scroll(root), auto;
+      }
+    }
+
+    .cv-wheel-top {
+      animation: cv-pop-in linear both;
+      animation-timeline: scroll(root);
+      animation-range: 0 360px;
+    }
+
+    .cv-wheel-top::before {
+      animation: cv-wheel-scroll linear both;
+      animation-timeline: scroll(root);
+    }
+  }
+
+  /* Les blocs se lèvent doucement quand ils entrent à l'écran.
+     « backwards » : pas d'effet une fois affichés, donc rien ne gêne les survols. */
+  @supports (animation-timeline: view()) {
+    .cv-cats__tile,
+    .cv-photos__item,
+    .cv-reassure__item,
+    .cv-feat__item,
+    .cv-atelier__service,
+    .cv-store__panel,
+    .cv-store__map,
+    .cv-info__card,
+    .cv-faq__item {
+      animation: cv-rise linear backwards;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
