@@ -20,6 +20,7 @@
         "primary_link": "",
         "secondary_label": "Nous contacter",
         "secondary_link": "",
+        "image": "shopify://shop_images/1-accueil-allee-velos.jpg",
         "min_height": 70,
         "show_store_card": true,
         "store_status": "Ouvert en magasin",
@@ -242,6 +243,43 @@
         "contact_label": "Nous appeler",
         "contact_link": ""
       }
+    },
+    "cv_photos_eMJ8aL": {
+      "type": "cv-photos",
+      "blocks": {
+        "photo_Xea8XN": {
+          "type": "photo",
+          "settings": {
+            "caption": "Vélos de route, VTT et électriques",
+            "alt": ""
+          }
+        },
+        "photo_jdrfrT": {
+          "type": "photo",
+          "settings": {
+            "caption": "Accessoires et textile",
+            "alt": ""
+          }
+        },
+        "photo_Wccind": {
+          "type": "photo",
+          "settings": {
+            "caption": "Électriques et route",
+            "alt": ""
+          }
+        }
+      },
+      "block_order": [
+        "photo_Xea8XN",
+        "photo_jdrfrT",
+        "photo_Wccind"
+      ],
+      "name": "CV · Galerie photos",
+      "settings": {
+        "eyebrow": "Le magasin",
+        "heading": "Un magasin à parcourir",
+        "subheading": "Vélos de route, VTT, électriques et équipement : tout se voit et s'essaie à Agen."
+      }
     }
   },
   "order": [
@@ -250,6 +288,7 @@
     "cv_categories_WEhhpE",
     "cv_featured_giyYLE",
     "cv_atelier_CgARVe",
-    "cv_store_YxJCk7"
+    "cv_store_YxJCk7",
+    "cv_photos_eMJ8aL"
   ]
 }
