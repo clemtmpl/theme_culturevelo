@@ -250,6 +250,7 @@
         "photo_Xea8XN": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/2-galerie-mur-culture-velo-agen.jpg",
             "caption": "Vélos de route, VTT et électriques",
             "alt": ""
           }
@@ -257,6 +258,7 @@
         "photo_jdrfrT": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/3-galerie-textile-accessoires.jpg",
             "caption": "Accessoires et textile",
             "alt": ""
           }
@@ -264,6 +266,7 @@
         "photo_Wccind": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/4-galerie-velos-electriques-route.jpg",
             "caption": "Électriques et route",
             "alt": ""
           }
