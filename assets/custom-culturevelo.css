@@ -207,6 +207,17 @@ body:has(#MainContent > .shopify-section:first-child .cv-hero) .cv-hero__inner {
   padding-block-start: calc(clamp(3rem, 8vw, 6rem) + 80px);
 }
 
+/* Pages intérieures : la bannière (cv-page-hero) passe aussi sous l'en-tête flottant,
+   sinon une bande blanche apparaît au-dessus. Même principe que l'accueil. */
+
+body:has(#MainContent > .shopify-section:first-child .cv-phero) #header-group .header-section {
+  margin-block-end: -110px;
+}
+
+body:has(#MainContent > .shopify-section:first-child .cv-phero) .cv-phero {
+  padding-block-start: calc(clamp(6.5rem, 12vw, 8.5rem) + 110px);
+}
+
 /* --- Cartes produit -------------------------------------------------------- */
 
 .product-grid__card {
