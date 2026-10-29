@@ -12,6 +12,7 @@
       "type": "cv-page-hero",
       "settings": {
         "eyebrow": "La boutique",
+        "image": "shopify://shop_images/4-galerie-velos-electriques-route.jpg",
         "min_height": 35
       }
     },

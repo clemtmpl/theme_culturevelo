@@ -8,7 +8,7 @@
 {%- liquid
   assign hero_title = section.settings.heading | default: collection.title | default: page.title
   assign hero_text = section.settings.text | default: collection.description | strip_html | truncate: 220
-  assign hero_image = section.settings.image | default: collection.image
+  assign hero_image = collection.image | default: section.settings.image
 -%}
 
 <section
@@ -187,7 +187,7 @@
       "type": "image_picker",
       "id": "image",
       "label": "Photo de fond",
-      "info": "Vide, sur une collection : l'image de la collection. Sans image, fond bleu marine."
+      "info": "Sur une collection, l'image de la collection passe en premier ; cette photo sert quand elle n'en a pas. Sans image, fond bleu marine."
     },
     { "type": "range", "id": "min_height", "label": "Hauteur minimale", "min": 25, "max": 70, "step": 5, "unit": "vh", "default": 40 },
     { "type": "header", "content": "Bouton (facultatif)" },
