@@ -4,7 +4,8 @@
   Un encadré d'aide avec le téléphone clôt la page.
 {%- endcomment -%}
 
-<section class="cv-info cv-wrap" id="cv-info-{{ section.id }}">
+<section class="cv-info cv-wrap{% if section.settings.under_hero %} cv-info--under-hero{% endif %}" id="cv-info-{{ section.id }}">
+  {%- unless section.settings.under_hero -%}
   <header class="cv-info__head">
     {%- if section.settings.eyebrow != blank -%}
       <p class="cv-info__eyebrow">{{ section.settings.eyebrow | escape }}</p>
@@ -14,6 +15,7 @@
       <p class="cv-info__intro">{{ section.settings.intro | escape }}</p>
     {%- endif -%}
   </header>
+  {%- endunless -%}
 
   <div class="cv-info__grid">
     {%- for block in section.blocks -%}
@@ -152,12 +154,14 @@
   @media (max-width: 749px) {
     .cv-info { padding-block: 6rem 3rem; }
   }
+  .cv-info--under-hero { padding-block-start: clamp(2rem, 5vw, 3.5rem); }
 {% endstylesheet %}
 
 {% schema %}
 {
   "name": "CV · Page d'information",
   "settings": [
+    { "type": "checkbox", "id": "under_hero", "label": "Placée sous une bannière de page", "info": "Masque le titre ici et réduit l'espace du haut : le titre est dans la bannière.", "default": false },
     { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Infos pratiques" },
     { "type": "text", "id": "heading", "label": "Titre", "default": "Livraison et retrait" },
     { "type": "textarea", "id": "intro", "label": "Introduction" },

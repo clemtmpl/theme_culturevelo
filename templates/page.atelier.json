@@ -9,6 +9,16 @@
  */
 {
   "sections": {
+    "hero": {
+      "type": "cv-page-hero",
+      "settings": {
+        "eyebrow": "Atelier",
+        "heading": "Votre vélo entre de bonnes mains",
+        "text": "Révision, réparation, étude posturale, montage : l'atelier s'occupe de tous les vélos, électriques compris.",
+        "image": "shopify://shop_images/4-galerie-velos-electriques-route.jpg",
+        "min_height": 40
+      }
+    },
     "atelier": {
       "type": "cv-atelier",
       "blocks": {
@@ -57,13 +67,50 @@
         "brands_title": ""
       }
     },
+    "steps": {
+      "type": "cv-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "title": "Appelez l'atelier",
+            "text": "Prenez rendez-vous par téléphone au 05 53 48 08 18."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "title": "Déposez votre vélo",
+            "text": "Apportez-le au magasin d'Agen, pendant les horaires d'ouverture."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "title": "Repartez prêt à rouler",
+            "text": "Nous vous prévenons quand il est prêt : vous repartez avec un vélo qui roule."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "eyebrow": "Simple et rapide",
+        "heading": "Comment ça se passe"
+      }
+    },
     "store": {
       "type": "cv-store",
       "settings": {}
     }
   },
   "order": [
+    "hero",
     "atelier",
+    "steps",
     "store"
   ]
 }

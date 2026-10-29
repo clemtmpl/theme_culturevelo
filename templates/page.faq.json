@@ -1,5 +1,15 @@
 {
   "sections": {
+    "hero": {
+      "type": "cv-page-hero",
+      "settings": {
+        "eyebrow": "Aide",
+        "heading": "Questions fréquentes",
+        "text": "Retrait, livraison, retours, atelier : les réponses aux questions les plus courantes.",
+        "image": "shopify://shop_images/1-accueil-allee-velos.jpg",
+        "min_height": 35
+      }
+    },
     "faq": {
       "type": "cv-faq",
       "blocks": {
@@ -128,11 +138,13 @@
         "intro": "Retrait, livraison, retours, atelier : les réponses aux questions les plus courantes.",
         "help_title": "Une autre question ?",
         "help_text": "L'équipe du magasin vous répond par téléphone.",
-        "phone": "05 53 48 08 18"
+        "phone": "05 53 48 08 18",
+        "under_hero": true
       }
     }
   },
   "order": [
+    "hero",
     "faq"
   ]
 }

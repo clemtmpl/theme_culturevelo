@@ -1,5 +1,50 @@
 {
   "sections": {
+    "hero": {
+      "type": "cv-page-hero",
+      "settings": {
+        "eyebrow": "Infos pratiques",
+        "heading": "Livraison et retrait",
+        "text": "Retirez votre commande gratuitement à Agen, ou demandez un envoi à domicile.",
+        "image": "shopify://shop_images/3-galerie-textile-accessoires.jpg",
+        "min_height": 35
+      }
+    },
+    "steps": {
+      "type": "cv-steps",
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "title": "Commandez en ligne",
+            "text": "Choisissez votre produit et réglez la commande en totalité."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "title": "On la prépare",
+            "text": "Votre commande est prête sous 3 jours au maximum. Un e-mail vous prévient."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "title": "Retirez-la au magasin",
+            "text": "Passez à Agen avec l'e-mail de confirmation. Elle vous attend 30 jours."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3"
+      ],
+      "settings": {
+        "eyebrow": "Retrait gratuit",
+        "heading": "Retirer sa commande en 3 étapes"
+      }
+    },
     "info": {
       "type": "cv-info",
       "blocks": {
@@ -42,11 +87,14 @@
         "intro": "Retirez votre commande gratuitement à Agen, ou demandez un envoi à domicile.",
         "help_title": "Une question ?",
         "help_text": "L'équipe du magasin vous répond par téléphone.",
-        "phone": "05 53 48 08 18"
+        "phone": "05 53 48 08 18",
+        "under_hero": true
       }
     }
   },
   "order": [
+    "hero",
+    "steps",
     "info"
   ]
 }

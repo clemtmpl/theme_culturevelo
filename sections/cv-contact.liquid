@@ -1,0 +1,306 @@
+{%- comment -%}
+  RC Bike — page Contact : coordonnées en cartes + formulaire de contact Shopify.
+  Le formulaire envoie un e-mail à l'adresse du magasin (Paramètres → Général).
+  Les horaires : une ligne par jour, au format « Jour | Horaires ».
+{%- endcomment -%}
+
+<section class="cv-contact cv-wrap" id="cv-contact-{{ section.id }}">
+  <div class="cv-contact__grid">
+    <div class="cv-contact__info">
+      {%- if section.settings.heading != blank -%}
+        <h2 class="cv-contact__title">{{ section.settings.heading | escape }}</h2>
+      {%- endif -%}
+      {%- if section.settings.intro != blank -%}
+        <p class="cv-contact__intro">{{ section.settings.intro | escape }}</p>
+      {%- endif -%}
+
+      <ul class="cv-contact__cards">
+        {%- if section.settings.phone != blank -%}
+          <li class="cv-contact__card">
+            <span class="cv-contact__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 005 5L15 13l5 2v4a2 2 0 01-2 2A16 16 0 013 6a2 2 0 012-2z"/></svg>
+            </span>
+            <div>
+              <p class="cv-contact__label">Téléphone</p>
+              <a class="cv-contact__value" href="tel:{{ section.settings.phone | replace: ' ', '' }}">{{ section.settings.phone | escape }}</a>
+            </div>
+          </li>
+        {%- endif -%}
+
+        {%- if section.settings.email != blank -%}
+          <li class="cv-contact__card">
+            <span class="cv-contact__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>
+            </span>
+            <div>
+              <p class="cv-contact__label">E-mail</p>
+              <a class="cv-contact__value" href="mailto:{{ section.settings.email }}">{{ section.settings.email | escape }}</a>
+            </div>
+          </li>
+        {%- endif -%}
+
+        {%- if section.settings.address != blank -%}
+          <li class="cv-contact__card">
+            <span class="cv-contact__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6.2 7-11.5A7 7 0 005 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+            </span>
+            <div>
+              <p class="cv-contact__label">Magasin</p>
+              <a class="cv-contact__value" href="https://www.google.com/maps/search/?api=1&query={{ section.settings.address | url_encode }}" target="_blank" rel="noopener">{{ section.settings.address | escape }}</a>
+            </div>
+          </li>
+        {%- endif -%}
+
+        {%- if section.settings.hours != blank -%}
+          <li class="cv-contact__card">
+            <span class="cv-contact__icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+            </span>
+            <div>
+              <p class="cv-contact__label">Horaires</p>
+              <dl class="cv-contact__hours">
+                {%- assign hours_lines = section.settings.hours | newline_to_br | split: '<br />' -%}
+                {%- for line in hours_lines -%}
+                  {%- assign clean = line | strip | strip_newlines -%}
+                  {%- if clean != blank -%}
+                    {%- assign parts = clean | split: '|' -%}
+                    <dt>{{ parts[0] | strip | escape }}</dt>
+                    <dd>{{ parts[1] | strip | escape }}</dd>
+                  {%- endif -%}
+                {%- endfor -%}
+              </dl>
+            </div>
+          </li>
+        {%- endif -%}
+      </ul>
+    </div>
+
+    <div class="cv-contact__formwrap">
+      {%- form 'contact', id: 'cv-contact-form', class: 'cv-contact__form' -%}
+        <h2 class="cv-contact__formtitle">{{ section.settings.form_title | escape }}</h2>
+
+        {%- if form.posted_successfully? -%}
+          <p class="cv-contact__notice cv-contact__notice--ok" role="status">{{ section.settings.success_text | escape }}</p>
+        {%- endif -%}
+
+        {%- if form.errors -%}
+          <div class="cv-contact__notice cv-contact__notice--error" role="alert">
+            <p>Le message n'a pas pu être envoyé :</p>
+            <ul>
+              {%- for field in form.errors -%}
+                <li>{{ form.errors.translated_fields[field] | capitalize }} {{ form.errors.messages[field] }}</li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+
+        <div class="cv-contact__row">
+          <label class="cv-contact__field">
+            <span>Nom</span>
+            <input type="text" name="contact[name]" autocomplete="name" value="{% if form.name %}{{ form.name | escape }}{% elsif customer %}{{ customer.name | escape }}{% endif %}" required>
+          </label>
+          <label class="cv-contact__field">
+            <span>E-mail</span>
+            <input type="email" name="contact[email]" autocomplete="email" value="{% if form.email %}{{ form.email | escape }}{% elsif customer %}{{ customer.email | escape }}{% endif %}" required>
+          </label>
+        </div>
+
+        <label class="cv-contact__field">
+          <span>Téléphone <small>(facultatif)</small></span>
+          <input type="tel" name="contact[phone]" autocomplete="tel" value="{{ form.phone | escape }}">
+        </label>
+
+        <label class="cv-contact__field">
+          <span>Votre message</span>
+          <textarea name="contact[body]" rows="6" required>{{ form.body }}</textarea>
+        </label>
+
+        <button class="cv-contact__submit" type="submit">{{ section.settings.button_label | escape }}</button>
+      {%- endform -%}
+    </div>
+  </div>
+</section>
+
+{% stylesheet %}
+  .cv-contact { padding-block: clamp(2rem, 5vw, 4rem); }
+
+  .cv-contact__grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  @media (min-width: 990px) {
+    .cv-contact__grid { grid-template-columns: 0.9fr 1.1fr; gap: 3rem; }
+  }
+
+  .cv-contact__title,
+  .cv-contact__formtitle {
+    margin: 0 0 0.5rem;
+    font-family: var(--font-heading--family);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1.05;
+    font-weight: 800;
+    font-stretch: 115%;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    color: var(--cv-navy, #032942);
+  }
+
+  .cv-contact__intro { margin: 0 0 1.5rem; color: rgb(3 41 66 / 72%); }
+
+  .cv-contact__cards { display: grid; gap: 0.75rem; margin: 0; padding: 0; list-style: none; }
+
+  .cv-contact__card {
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    padding: 1rem 1.25rem;
+    background: #fff;
+    border: 1px solid var(--cv-line, #d5dee6);
+    border-radius: var(--cv-radius, 18px);
+  }
+
+  .cv-contact__icon {
+    flex: none;
+    display: grid;
+    place-items: center;
+    inline-size: 44px;
+    block-size: 44px;
+    border-radius: 50%;
+    color: var(--cv-blue, #0969a8);
+    background: var(--cv-mist, #ebf0f5);
+  }
+
+  .cv-contact__label {
+    margin: 0 0 0.125rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgb(3 41 66 / 55%);
+  }
+
+  .cv-contact__value {
+    font-weight: 700;
+    color: var(--cv-navy, #032942);
+    text-decoration: none;
+    overflow-wrap: anywhere;
+  }
+
+  @media (hover: hover) {
+    .cv-contact__value:hover { color: var(--cv-blue, #0969a8); text-decoration: underline; }
+  }
+
+  .cv-contact__hours {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.125rem 1rem;
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--cv-navy, #032942);
+  }
+  .cv-contact__hours dt { font-weight: 700; }
+  .cv-contact__hours dd { margin: 0; color: rgb(3 41 66 / 78%); }
+
+  .cv-contact__formwrap {
+    padding: clamp(1.25rem, 3vw, 2rem);
+    background: linear-gradient(160deg, #fff 0%, var(--cv-mist, #ebf0f5) 100%);
+    border: 1px solid var(--cv-line, #d5dee6);
+    border-radius: calc(var(--cv-radius, 18px) * 1.3);
+    box-shadow: 0 30px 60px -40px rgb(3 41 66 / 45%);
+  }
+
+  .cv-contact__form { display: grid; gap: 1rem; }
+
+  .cv-contact__row { display: grid; gap: 1rem; grid-template-columns: 1fr; }
+  @media (min-width: 600px) { .cv-contact__row { grid-template-columns: 1fr 1fr; } }
+
+  .cv-contact__field { display: grid; gap: 0.375rem; }
+  .cv-contact__field > span { font-size: 0.875rem; font-weight: 700; color: var(--cv-navy, #032942); }
+  .cv-contact__field small { font-weight: 400; color: rgb(3 41 66 / 55%); }
+
+  .cv-contact__field input,
+  .cv-contact__field textarea {
+    inline-size: 100%;
+    box-sizing: border-box;
+    padding: 0.875rem 1rem;
+    font: inherit;
+    color: var(--cv-navy, #032942);
+    background: #fff;
+    border: 1px solid var(--cv-line, #d5dee6);
+    border-radius: 14px;
+    transition: border-color 0.2s var(--cv-ease, ease), box-shadow 0.2s var(--cv-ease, ease);
+  }
+
+  .cv-contact__field textarea { resize: vertical; min-block-size: 9rem; }
+
+  .cv-contact__field input:focus,
+  .cv-contact__field textarea:focus {
+    outline: none;
+    border-color: var(--cv-blue-hover, #00a5e2);
+    box-shadow: 0 0 0 4px rgb(0 165 226 / 18%);
+  }
+
+  .cv-contact__submit {
+    justify-self: start;
+    min-block-size: 50px;
+    padding-inline: 2rem;
+    font: inherit;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    background: var(--cv-blue-hover, #00a5e2);
+    border: 0;
+    border-radius: 999px;
+    transition: transform 0.2s var(--cv-ease, ease), background-color 0.2s var(--cv-ease, ease);
+  }
+
+  @media (hover: hover) {
+    .cv-contact__submit:hover { transform: translateY(-2px); background: var(--cv-blue-mid, #0a79c1); }
+  }
+
+  .cv-contact__notice { margin: 0; padding: 0.875rem 1rem; border-radius: 14px; font-weight: 600; }
+  .cv-contact__notice p { margin: 0 0 0.25rem; }
+  .cv-contact__notice ul { margin: 0; padding-inline-start: 1.25rem; }
+  .cv-contact__notice--ok { color: #14673f; background: #e2f5ea; }
+  .cv-contact__notice--error { color: #9a2c22; background: #fdeae7; }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "CV · Contact",
+  "tag": "section",
+  "class": "cv-section",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre des coordonnées", "default": "Parlons vélo" },
+    {
+      "type": "textarea",
+      "id": "intro",
+      "label": "Texte d'introduction",
+      "default": "Une question sur un vélo, une commande ou l'atelier ? Appelez-nous, passez au magasin ou écrivez-nous."
+    },
+    { "type": "text", "id": "phone", "label": "Téléphone", "default": "05 53 48 08 18" },
+    { "type": "text", "id": "email", "label": "E-mail", "default": "rcbike47@gmail.com" },
+    { "type": "text", "id": "address", "label": "Adresse", "default": "ZAC Agen Sud, Avenue de l'Atlantique, 47000 Agen" },
+    {
+      "type": "textarea",
+      "id": "hours",
+      "label": "Horaires",
+      "info": "Une ligne par jour, au format : Jour | Horaires",
+      "default": "Mardi - Vendredi | 9h30-12h / 14h-18h30\nSamedi | 9h30-12h / 14h-18h\nLundi | Fermé\nDimanche | Fermé"
+    },
+    { "type": "header", "content": "Formulaire" },
+    { "type": "text", "id": "form_title", "label": "Titre du formulaire", "default": "Écrivez-nous" },
+    { "type": "text", "id": "button_label", "label": "Texte du bouton", "default": "Envoyer" },
+    {
+      "type": "text",
+      "id": "success_text",
+      "label": "Message après envoi",
+      "default": "Merci ! Votre message est bien envoyé, nous vous répondons rapidement."
+    }
+  ],
+  "presets": [{ "name": "CV · Contact" }]
+}
+{% endschema %}

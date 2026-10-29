@@ -1,0 +1,199 @@
+{%- comment -%}
+  RC Bike — bannière de page intérieure (Atelier, Contact, Livraison, FAQ, collections).
+  Même style que le bandeau d'accueil, en plus bas : photo en fond, voile bleu marine,
+  titre en capitales. Sur une collection, le titre, la description et l'image viennent
+  de la collection si les champs de la section sont vides.
+{%- endcomment -%}
+
+{%- liquid
+  assign hero_title = section.settings.heading | default: collection.title | default: page.title
+  assign hero_text = section.settings.text | default: collection.description | strip_html | truncate: 220
+  assign hero_image = section.settings.image | default: collection.image
+-%}
+
+<section
+  class="cv-phero{% if hero_image != blank %} cv-phero--photo{% endif %}"
+  id="cv-phero-{{ section.id }}"
+  style="--cv-phero-min: {{ section.settings.min_height }}vh;"
+>
+  {%- if hero_image != blank -%}
+    <div class="cv-phero__bg" aria-hidden="true">
+      {{
+        hero_image
+        | image_url: width: 2400
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          widths: '900, 1400, 1800, 2400',
+          sizes: '100vw',
+          alt: ''
+      }}
+    </div>
+  {%- else -%}
+    <span class="cv-halo cv-halo--blue cv-phero__halo cv-phero__halo--a" aria-hidden="true"></span>
+    <span class="cv-halo cv-halo--bright cv-phero__halo cv-phero__halo--b" aria-hidden="true"></span>
+  {%- endif -%}
+
+  <div class="cv-phero__inner cv-wrap">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="cv-phero__eyebrow">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
+
+    <h1 class="cv-phero__title">{{ hero_title | escape }}</h1>
+
+    {%- if hero_text != blank -%}
+      <p class="cv-phero__text">{{ hero_text | escape }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.button_label != blank -%}
+      <div class="cv-phero__actions">
+        <a class="cv-phero__btn" href="{{ section.settings.button_link | default: '#' }}">
+          {{- section.settings.button_label | escape -}}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% stylesheet %}
+  .cv-phero {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    display: grid;
+    align-items: end;
+    min-block-size: var(--cv-phero-min, 40vh);
+    padding-block-start: clamp(6.5rem, 12vw, 8.5rem);
+    color: #f2f7fb;
+    background:
+      radial-gradient(120% 140% at 0% 0%, var(--cv-navy-700, #05426b) 0%, transparent 60%),
+      linear-gradient(160deg, var(--cv-navy, #032942) 0%, var(--cv-navy-deep, #021d30) 100%);
+  }
+
+  .cv-phero__halo { z-index: -1; }
+  .cv-phero__halo--a { inline-size: 420px; block-size: 420px; inset-block-start: -140px; inset-inline-end: -80px; }
+  .cv-phero__halo--b { inline-size: 300px; block-size: 300px; inset-block-end: -140px; inset-inline-start: 25%; }
+
+  .cv-phero__bg { position: absolute; inset: 0; z-index: -2; overflow: hidden; }
+
+  .cv-phero__bg img {
+    display: block;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    object-position: 50% 60%;
+    transform-origin: 65% 60%;
+  }
+
+  .cv-phero--photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      linear-gradient(90deg, rgb(2 29 48 / 92%) 0%, rgb(3 41 66 / 72%) 45%, rgb(3 41 66 / 30%) 100%),
+      linear-gradient(0deg, rgb(2 29 48 / 60%) 0%, transparent 45%);
+  }
+
+  .cv-phero__inner { padding-block: 1rem clamp(2.25rem, 5vw, 3.75rem); }
+
+  .cv-phero__eyebrow {
+    margin: 0 0 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--cv-sky, #90c4e6);
+  }
+
+  .cv-phero__title {
+    margin: 0;
+    max-inline-size: 18ch;
+    font-family: var(--font-heading--family);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1;
+    font-weight: 800;
+    font-stretch: 115%;
+    letter-spacing: -0.015em;
+    text-transform: uppercase;
+    text-wrap: balance;
+    color: #fff;
+  }
+
+  .cv-phero__text {
+    margin: 1rem 0 0;
+    max-inline-size: 38rem;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    color: rgb(242 247 251 / 85%);
+  }
+
+  .cv-phero__actions { margin-block-start: 1.5rem; }
+
+  .cv-phero__btn {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 46px;
+    padding-inline: 1.5rem;
+    border-radius: 999px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    background: var(--cv-blue-hover, #00a5e2);
+    transition: transform 0.2s var(--cv-ease, ease), background-color 0.2s var(--cv-ease, ease);
+  }
+
+  @media (hover: hover) {
+    .cv-phero__btn:hover { transform: translateY(-2px); background: var(--cv-blue-mid, #0a79c1); }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .cv-phero__bg img { animation: cv-phero-settle 12s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+    @keyframes cv-phero-settle {
+      from { transform: scale(1.1); }
+      to { transform: scale(1); }
+    }
+  }
+
+  @media (max-width: 749px) {
+    .cv-phero--photo::after {
+      background: linear-gradient(180deg, rgb(2 29 48 / 82%) 0%, rgb(3 41 66 / 72%) 60%, rgb(2 29 48 / 90%) 100%);
+    }
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "CV · Bannière de page",
+  "tag": "section",
+  "class": "cv-section",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre" },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Titre",
+      "info": "Vide : le titre de la page ou de la collection."
+    },
+    {
+      "type": "textarea",
+      "id": "text",
+      "label": "Texte",
+      "info": "Vide, sur une collection : sa description."
+    },
+    { "type": "header", "content": "Image" },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Photo de fond",
+      "info": "Vide, sur une collection : l'image de la collection. Sans image, fond bleu marine."
+    },
+    { "type": "range", "id": "min_height", "label": "Hauteur minimale", "min": 25, "max": 70, "step": 5, "unit": "vh", "default": 40 },
+    { "type": "header", "content": "Bouton (facultatif)" },
+    { "type": "text", "id": "button_label", "label": "Texte du bouton" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" }
+  ],
+  "presets": [{ "name": "CV · Bannière de page" }]
+}
+{% endschema %}
