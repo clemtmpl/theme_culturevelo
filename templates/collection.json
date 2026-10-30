@@ -16,6 +16,21 @@
         "min_height": 35
       }
     },
+    "types": {
+      "type": "cv-type-nav",
+      "blocks": {
+        "type_route": { "type": "type", "settings": { "collection": "route-gravel" } },
+        "type_vtt": { "type": "type", "settings": { "collection": "vtt" } },
+        "type_elec": { "type": "type", "settings": { "collection": "electriques" } },
+        "type_enfants": { "type": "type", "settings": { "collection": "enfants" } }
+      },
+      "block_order": ["type_route", "type_vtt", "type_elec", "type_enfants"],
+      "settings": {
+        "heading": "Parcourir par type",
+        "all_label": "Tous les vélos",
+        "all_collection": "velos"
+      }
+    },
     "main": {
       "type": "main-collection",
       "blocks": {
@@ -141,6 +156,7 @@
   },
   "order": [
     "section",
+    "types",
     "main"
   ]
 }
