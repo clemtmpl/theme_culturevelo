@@ -21,6 +21,7 @@
         "secondary_label": "Nous contacter",
         "secondary_link": "",
         "image": "shopify://shop_images/1-accueil-allee-velos.jpg",
+        "image_style": "background",
         "min_height": 70,
         "show_store_card": true,
         "store_status": "Ouvert en magasin",
@@ -80,42 +81,35 @@
         "category_haP8bT": {
           "type": "category",
           "settings": {
-            "collection": "",
+            "collection": "route-gravel",
             "title": ""
           }
         },
         "category_tQd9HQ": {
           "type": "category",
           "settings": {
-            "collection": "",
+            "collection": "vtt",
             "title": ""
           }
         },
         "category_XEHkMC": {
           "type": "category",
           "settings": {
-            "collection": "",
+            "collection": "ville-vtc",
             "title": ""
           }
         },
         "category_kqDDCi": {
           "type": "category",
           "settings": {
-            "collection": "",
+            "collection": "electriques",
             "title": ""
           }
         },
         "category_pkT849": {
           "type": "category",
           "settings": {
-            "collection": "",
-            "title": ""
-          }
-        },
-        "category_LUTwyM": {
-          "type": "category",
-          "settings": {
-            "collection": "",
+            "collection": "enfants",
             "title": ""
           }
         }
@@ -125,8 +119,7 @@
         "category_tQd9HQ",
         "category_XEHkMC",
         "category_kqDDCi",
-        "category_pkT849",
-        "category_LUTwyM"
+        "category_pkT849"
       ],
       "name": "CV · Catégories",
       "settings": {
