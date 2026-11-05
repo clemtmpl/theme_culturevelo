@@ -163,13 +163,21 @@
     display: grid;
     gap: 2rem;
     margin-block-start: clamp(2.5rem, 6vw, 4rem);
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
   }
-  .cv-foot__brand { grid-column: span 2; }
+
+  /* Grandes largeurs de téléphone / tablette : deux colonnes, et la dernière
+     colonne de menu occupe toute la largeur pour ne pas laisser de case vide. */
+  @media (min-width: 560px) {
+    .cv-foot__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cv-foot__brand { grid-column: span 2; }
+    .cv-foot__grid > .cv-foot__col:last-child { grid-column: 1 / -1; }
+  }
 
   @media (min-width: 990px) {
     .cv-foot__grid { grid-template-columns: 2fr repeat(3, minmax(0, 1fr)); }
     .cv-foot__brand { grid-column: auto; }
+    .cv-foot__grid > .cv-foot__col:last-child { grid-column: auto; }
   }
 
   .cv-foot__logo { display: flex; flex-direction: column; margin: 0 0 1rem; line-height: 1; }
