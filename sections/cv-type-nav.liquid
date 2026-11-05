@@ -48,6 +48,7 @@
     {%- if section.settings.heading != blank -%}
       <p class="cv-typenav__label">{{ section.settings.heading | escape }}</p>
     {%- endif -%}
+    <div class="cv-typenav__scroll">
     <ul class="cv-typenav__list">
       {%- if all_col != blank -%}
         {%- assign is_all = false -%}
@@ -73,12 +74,14 @@
         {%- endif -%}
       {%- endfor -%}
     </ul>
+    </div>
   </nav>
 {%- elsif type_filter and shown > 1 -%}
   <nav class="cv-typenav cv-wrap" aria-label="{{ section.settings.heading | escape }}">
     {%- if section.settings.heading != blank -%}
       <p class="cv-typenav__label">{{ section.settings.heading | escape }}</p>
     {%- endif -%}
+    <div class="cv-typenav__scroll">
     <ul class="cv-typenav__list">
       <li>
         <a
@@ -105,8 +108,28 @@
         {%- endif -%}
       {%- endfor -%}
     </ul>
+    </div>
   </nav>
 {%- endif -%}
+
+<script>
+  (function () {
+    function setup(scroll) {
+      var list = scroll.querySelector('.cv-typenav__list');
+      if (!list) return;
+      function update() {
+        var max = list.scrollWidth - list.clientWidth;
+        scroll.classList.toggle('has-start', list.scrollLeft > 2);
+        scroll.classList.toggle('has-end', max > 2 && list.scrollLeft < max - 2);
+      }
+      list.addEventListener('scroll', update, { passive: true });
+      window.addEventListener('resize', update);
+      update();
+      setTimeout(update, 300);
+    }
+    document.querySelectorAll('.cv-typenav__scroll').forEach(setup);
+  })();
+</script>
 
 {% stylesheet %}
   .cv-typenav {
@@ -134,6 +157,37 @@
   }
 
   .cv-typenav__list::-webkit-scrollbar { display: none; }
+
+  .cv-typenav__scroll { position: relative; }
+
+  /* Sur mobile, un dégradé (et un chevron) apparaît du côté où il reste
+     des catégories à faire défiler, pour montrer qu'on peut glisser. */
+  @media (max-width: 749px) {
+    .cv-typenav__scroll::before,
+    .cv-typenav__scroll::after {
+      content: '';
+      position: absolute;
+      inset-block: 0;
+      inline-size: 2.75rem;
+      pointer-events: none;
+      z-index: 2;
+      opacity: 0;
+      transition: opacity 0.2s var(--cv-ease, ease);
+    }
+    .cv-typenav__scroll::before {
+      inset-inline-start: 0;
+      background: linear-gradient(to right, var(--cv-bg, #fff) 35%, rgba(255, 255, 255, 0));
+    }
+    .cv-typenav__scroll::after {
+      inset-inline-end: 0;
+      background:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23032942' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 6l6 6-6 6'/%3E%3C/svg%3E")
+          right 0.35rem center / 0.95rem no-repeat,
+        linear-gradient(to left, var(--cv-bg, #fff) 35%, rgba(255, 255, 255, 0));
+    }
+    .cv-typenav__scroll.has-start::before { opacity: 1; }
+    .cv-typenav__scroll.has-end::after { opacity: 1; }
+  }
 
   @media (min-width: 750px) {
     .cv-typenav__list { flex-wrap: wrap; overflow: visible; }
