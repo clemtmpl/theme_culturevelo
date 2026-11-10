@@ -133,7 +133,7 @@
       "settings": {
         "eyebrow": "Sélection du magasin",
         "heading": "Nos coups de cœur",
-        "collection": "",
+        "collection": "velos",
         "products_to_show": 4,
         "link_label": "Tout voir",
         "show_stock": true
