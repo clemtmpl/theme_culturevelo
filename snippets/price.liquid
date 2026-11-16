@@ -21,6 +21,15 @@
     assign show_compare_price = true
   endif
 
+  # Réduction : pastille -X % et montant économisé, quand il y a un prix barré.
+  assign cv_pct = 0
+  assign cv_saved = ''
+  if show_compare_price
+    assign cv_diff = compare_at_price | minus: price
+    assign cv_pct = cv_diff | times: 100.0 | divided_by: compare_at_price | round
+    assign cv_saved = cv_diff | money
+  endif
+
   if product_resource == blank
     assign price = 1999
   endif
@@ -115,6 +124,12 @@
       >
     {% endif %}
   {% endif %}
+  {%- if show_compare_price -%}
+    <span class="cv-pct-badge" aria-hidden="true">−{{ cv_pct }}&nbsp;%</span>
+    {%- unless is_product_card -%}
+      <span class="cv-save-line">Économisez {{ cv_saved }}</span>
+    {%- endunless -%}
+  {%- endif -%}
   {%- if selected_variant.unit_price and show_unit_price %}
     {%- liquid
       if use_currency

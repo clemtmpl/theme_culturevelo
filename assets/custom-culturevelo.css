@@ -669,3 +669,26 @@ add-to-cart-component .button {
     }
   }
 }
+
+/* --- Réduction : pastille -X % (cartes + fiche) et ligne « Économisez X € » (fiche) --- */
+.cv-pct-badge {
+  display: inline-block;
+  margin-inline-start: 0.5rem;
+  padding: 0.15em 0.55em;
+  border-radius: 999px;
+  background: var(--cv-coral, #e46f62);
+  color: var(--cv-navy-deep, #021d30);
+  font-weight: 800;
+  font-size: 0.78em;
+  letter-spacing: 0.02em;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.cv-save-line {
+  display: block;
+  margin-block-start: 0.35rem;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #b23b2a;
+}
