@@ -13,10 +13,10 @@
       "type": "cv-hero",
       "name": "CV · Bandeau d'accueil",
       "settings": {
-        "eyebrow": "RC Bike · Agen",
-        "heading": "Votre prochain vélo, à Agen.",
-        "text": "Route, gravel, VTT, électrique : venez l'essayer en magasin, ou commandez en ligne et retirez-le chez nous.",
-        "primary_label": "Voir les vélos",
+        "eyebrow": "BLACK FRIDAY · OFFRES EXCEPTIONNELLES",
+        "heading": "Jusqu’à 40 % de réduction*",
+        "text": "Profitez de nos offres Black Friday sur une sélection de vélos et d’équipements. À découvrir en magasin à Agen et en ligne",
+        "primary_label": "Découvrir les offres",
         "primary_link": "",
         "secondary_label": "Nous contacter",
         "secondary_link": "",
@@ -133,7 +133,7 @@
       "settings": {
         "eyebrow": "Sélection du magasin",
         "heading": "Nos coups de cœur",
-        "collection": "",
+        "collection": "velos",
         "products_to_show": 4,
         "link_label": "Tout voir",
         "show_stock": true
