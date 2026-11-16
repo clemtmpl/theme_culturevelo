@@ -47,7 +47,7 @@
       {%- endif -%}
 
       {%- if section.settings.text != blank -%}
-        <p class="cv-hero__text">{{ section.settings.text | escape }}</p>
+        <p class="cv-hero__text">{{ section.settings.text | escape | newline_to_br }}</p>
       {%- endif -%}
 
       <div class="cv-hero__actions">
