@@ -243,6 +243,7 @@
         "photo_Xea8XN": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/IMG_3936.jpg",
             "caption": "Vélos de route, VTT et électriques",
             "alt": ""
           }
@@ -250,6 +251,7 @@
         "photo_jdrfrT": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/IMG_3937.jpg",
             "caption": "Accessoires et textile",
             "alt": ""
           }
@@ -257,6 +259,7 @@
         "photo_Wccind": {
           "type": "photo",
           "settings": {
+            "image": "shopify://shop_images/IMG_3938_b1969272-2ce6-4474-be9f-6a1e2c8dda77.jpg",
             "caption": "Électriques et route",
             "alt": ""
           }
