@@ -6,25 +6,59 @@
  * or related systems. Please exercise caution as any changes
  * made to this file may be overwritten.
  * ------------------------------------------------------------
- */{
+ */
+{
   "sections": {
     "section": {
       "type": "cv-page-hero",
       "settings": {
         "eyebrow": "La boutique",
-        "image": "shopify://shop_images/4-galerie-velos-electriques-route.jpg",
-        "min_height": 35
+        "heading": "",
+        "text": "",
+        "image": "shopify://shop_images/IMG_3936.jpg",
+        "min_height": 35,
+        "button_label": "",
+        "button_link": ""
       }
     },
     "types": {
       "type": "cv-type-nav",
       "blocks": {
-        "type_route": { "type": "type", "settings": { "collection": "route-gravel" } },
-        "type_vtt": { "type": "type", "settings": { "collection": "vtt" } },
-        "type_elec": { "type": "type", "settings": { "collection": "electriques" } },
-        "type_enfants": { "type": "type", "settings": { "collection": "enfants" } }
+        "type_route": {
+          "type": "type",
+          "settings": {
+            "collection": "route-gravel",
+            "label": ""
+          }
+        },
+        "type_vtt": {
+          "type": "type",
+          "settings": {
+            "collection": "vtt",
+            "label": ""
+          }
+        },
+        "type_elec": {
+          "type": "type",
+          "settings": {
+            "collection": "electriques",
+            "label": ""
+          }
+        },
+        "type_enfants": {
+          "type": "type",
+          "settings": {
+            "collection": "enfants",
+            "label": ""
+          }
+        }
       },
-      "block_order": ["type_route", "type_vtt", "type_elec", "type_enfants"],
+      "block_order": [
+        "type_route",
+        "type_vtt",
+        "type_elec",
+        "type_enfants"
+      ],
       "settings": {
         "heading": "Parcourir par type",
         "all_label": "Tous les vélos",
@@ -46,6 +80,8 @@
             "show_filter_label": false,
             "enable_sorting": true,
             "enable_grid_density": true,
+            "background_color": "",
+            "text_color": "",
             "padding-block-start": 8,
             "padding-block-end": 8,
             "padding-inline-start": 0,
@@ -60,9 +96,11 @@
           "static": true,
           "settings": {
             "product_card_gap": 4,
+            "background_color": "",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
+            "border_color": "",
             "border_radius": 0,
             "padding-block-start": 0,
             "padding-block-end": 0,
@@ -77,6 +115,7 @@
                 "border": "none",
                 "border_width": 1,
                 "border_opacity": 100,
+                "border_color": "",
                 "border_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 0,
@@ -99,6 +138,7 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
+                "text_color": "",
                 "background": false,
                 "background_color": "#00000026",
                 "corner_radius": 0,
@@ -123,6 +163,7 @@
                 "line_height": "normal",
                 "letter_spacing": "normal",
                 "case": "none",
+                "text_color": "",
                 "padding-block-start": 0,
                 "padding-block-end": 0,
                 "padding-inline-start": 0,
@@ -142,6 +183,8 @@
         "layout_type": "grid",
         "product_card_size": "medium",
         "mobile_product_card_size": "small",
+        "enable_infinite_scroll": true,
+        "products_per_page": 24,
         "product_grid_width": "centered",
         "full_width_on_mobile": true,
         "columns_gap_horizontal": 16,

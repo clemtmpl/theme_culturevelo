@@ -15,8 +15,10 @@
         "eyebrow": "Atelier",
         "heading": "Votre vélo entre de bonnes mains",
         "text": "Révision, réparation, étude posturale, montage : l'atelier s'occupe de tous les vélos, électriques compris.",
-        "image": "shopify://shop_images/4-galerie-velos-electriques-route.jpg",
-        "min_height": 40
+        "image": "shopify://shop_images/IMG_3935.jpg",
+        "min_height": 40,
+        "button_label": "",
+        "button_link": ""
       }
     },
     "atelier": {
@@ -63,6 +65,7 @@
         "text": "Déposez votre vélo, repartez avec un vélo qui roule. Pour un rendez-vous ou un devis, appelez l'atelier.",
         "button_label": "Appeler l'atelier",
         "phone": "05 53 48 08 18",
+        "button_link": "",
         "chip": "Toutes marques, VAE compris",
         "brands_title": ""
       }
@@ -104,7 +107,16 @@
     },
     "store": {
       "type": "cv-store",
-      "settings": {}
+      "settings": {
+        "eyebrow": "Le magasin",
+        "heading": "Venez nous voir",
+        "store_name": "RC Bike · Culture Vélo Agen",
+        "address": "Zac Agen Sud, Av. de l'Atlantique, 47000 Agen",
+        "phone": "05 53 48 08 18",
+        "hours": "Lundi - Samedi | À compléter\nDimanche | À compléter",
+        "contact_label": "Nous contacter",
+        "contact_link": ""
+      }
     }
   },
   "order": [

@@ -15,12 +15,12 @@
       "settings": {
         "eyebrow": "BLACK FRIDAY · OFFRES EXCEPTIONNELLES",
         "heading": "Jusqu’à 40 % de réduction*",
-        "text": "Profitez de nos offres Black Friday sur une sélection de vélos et d’équipements. À découvrir en magasin à Agen et en ligne - *Suivant stock disponible \nOpération du 17 au 30 novembre 2026",
+        "text": "Profitez de nos offres Black Friday sur une sélection de vélos et d’équipements. À découvrir en magasin à Agen et en ligne *suivant stock disponible. Offre du 17 novembre au 30 novembre 2026",
         "primary_label": "Découvrir les offres",
         "primary_link": "",
         "secondary_label": "Nous contacter",
         "secondary_link": "",
-        "image": "shopify://shop_images/1-accueil-allee-velos.jpg",
+        "image": "shopify://shop_images/IMG_3935.jpg",
         "image_style": "background",
         "min_height": 70,
         "show_store_card": true,
@@ -96,13 +96,14 @@
           "type": "category",
           "settings": {
             "collection": "ville-vtc",
-            "title": ""
+            "title": "VILLE VTC ET FATBIKE",
+            "image": "shopify://shop_images/fatbike-recadre-56c776ec.png"
           }
         },
         "category_kqDDCi": {
           "type": "category",
           "settings": {
-            "collection": "electriques",
+            "collection": "electrique",
             "title": ""
           }
         },
@@ -243,7 +244,7 @@
         "photo_Xea8XN": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/2-galerie-mur-culture-velo-agen.jpg",
+            "image": "shopify://shop_images/IMG_3936.jpg",
             "caption": "Vélos de route, VTT et électriques",
             "alt": ""
           }
@@ -251,7 +252,7 @@
         "photo_jdrfrT": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/3-galerie-textile-accessoires.jpg",
+            "image": "shopify://shop_images/IMG_3937.jpg",
             "caption": "Accessoires et textile",
             "alt": ""
           }
@@ -259,7 +260,7 @@
         "photo_Wccind": {
           "type": "photo",
           "settings": {
-            "image": "shopify://shop_images/4-galerie-velos-electriques-route.jpg",
+            "image": "shopify://shop_images/IMG_3938_b1969272-2ce6-4474-be9f-6a1e2c8dda77.jpg",
             "caption": "Électriques et route",
             "alt": ""
           }

@@ -15,13 +15,25 @@
         "eyebrow": "Contact",
         "heading": "Nous contacter",
         "text": "Une question sur un vélo, une commande ou l'atelier ? Écrivez-nous ou passez au magasin.",
-        "image": "shopify://shop_images/2-galerie-mur-culture-velo-agen.jpg",
-        "min_height": 35
+        "image": "shopify://shop_images/IMG_3936.jpg",
+        "min_height": 35,
+        "button_label": "",
+        "button_link": ""
       }
     },
     "contact": {
       "type": "cv-contact",
-      "settings": {}
+      "settings": {
+        "heading": "Parlons vélo",
+        "intro": "Une question sur un vélo, une commande ou l'atelier ? Appelez-nous, passez au magasin ou écrivez-nous.",
+        "phone": "05 53 48 08 18",
+        "email": "rcbike47@gmail.com",
+        "address": "ZAC Agen Sud, Avenue de l'Atlantique, 47000 Agen",
+        "hours": "Mardi - Vendredi | 9h30-12h / 14h-18h30\nSamedi | 9h30-12h / 14h-18h\nLundi | Fermé\nDimanche | Fermé",
+        "form_title": "Écrivez-nous",
+        "button_label": "Envoyer",
+        "success_text": "Merci ! Votre message est bien envoyé, nous vous répondons rapidement."
+      }
     },
     "cv_store_WaC4Qq": {
       "type": "cv-store",
