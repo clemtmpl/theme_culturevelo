@@ -41,7 +41,7 @@
         "type_elec": {
           "type": "type",
           "settings": {
-            "collection": "electriques",
+            "collection": "electrique",
             "label": ""
           }
         },
