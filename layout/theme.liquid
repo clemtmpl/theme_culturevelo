@@ -29,6 +29,36 @@
       {%- render 'theme-editor' -%}
     {% endif %}
 
+    {%- comment -%} SEO local — données structurées BicycleStore (magasin physique) {%- endcomment -%}
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BicycleStore",
+      "name": "RC Bike · Culture Vélo Agen",
+      "image": "https://rcbike47.fr/cdn/shop/files/Logo_sportif_RC_Bike_Agen.png",
+      "@id": "https://rcbike47.fr",
+      "url": "https://rcbike47.fr",
+      "telephone": "+33553480818",
+      "priceRange": "€€",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "ZAC Agen Sud, Avenue de l'Atlantique",
+        "addressLocality": "Agen",
+        "postalCode": "47000",
+        "addressCountry": "FR"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 44.1831854598479,
+        "longitude": 0.622038353911428
+      },
+      "openingHoursSpecification": [
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "09:30", "closes": "12:00" },
+        { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Tuesday","Wednesday","Thursday","Friday","Saturday"], "opens": "14:00", "closes": "18:30" }
+      ]
+    }
+    </script>
+
     {{ content_for_header }}
   </head>
 
